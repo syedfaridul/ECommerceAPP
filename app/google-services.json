@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "680169119014",
+    "firebase_url": "https://rifaecomflover.firebaseio.com",
+    "project_id": "rifaecomflover",
+    "storage_bucket": "rifaecomflover.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680169119014:android:32fb67b0b5fba394c135e7",
+        "android_client_info": {
+          "package_name": "com.flover.rifaecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680169119014-4tmhib7gclqbj8adot9n20pg3tn2v64h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flover.rifaecom",
+            "certificate_hash": "1411457d5134dc043c5212a36bb8fa97d80d74c1"
+          }
+        },
+        {
+          "client_id": "680169119014-fb0uj7liqm37huk3ehauotpn4t33ivf0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC63471mbK9JPtkmMRuaskqpv1SqLqPMiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680169119014-fb0uj7liqm37huk3ehauotpn4t33ivf0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
