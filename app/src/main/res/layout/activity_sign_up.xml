@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".SignUp"
     android:background="@drawable/background_activity_for_mainactivity"
     android:clickable="true">
 
     <ImageView
-        android:id="@+id/appLogoImage"
+        android:id="@+id/appLogoImageR"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:src="@drawable/applogo"
@@ -17,25 +17,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
 
-    <TextView
-        android:id="@+id/appInstruction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/appLogoImage"
-        android:textColor="@color/colorPrimary"
-        android:text="Find, Discover, Choose and Buy anything online,\nLogin Now!"
-        android:textAlignment="center"
-        android:textSize="@dimen/normalTextSize"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textStyle="bold|italic"/>
-
     <EditText
-        android:id="@+id/userEmailOrPhone"
+        android:id="@+id/userEmailOrPhoneR"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/appInstruction"
+        android:layout_below="@+id/appLogoImageR"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/intputedittext"
@@ -44,13 +30,13 @@
         android:textAlignment="center"
         android:textColorHint="@android:color/black"
         android:textSize="@dimen/smallTextSize"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="50dp"/>
 
     <EditText
-        android:id="@+id/userPassword"
+        android:id="@+id/userPasswordR"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/userEmailOrPhone"
+        android:layout_below="@+id/userEmailOrPhoneR"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/intputedittext"
@@ -67,24 +53,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/signinbutton"
-        android:layout_below="@+id/userPassword"
+        android:layout_below="@+id/userPasswordR"
         android:layout_marginTop="25dp"
-        android:text="SignIn"
+        android:text="Create"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textColor="@android:color/black"/>
 
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/signupbutton"
-        android:layout_marginBottom="30dp"
-        android:text="Don't have account? SignUp!"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textColor="@android:color/black"/>
 </RelativeLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RiFaECoM</string>
     <dimen name="normalTextSize">25sp</dimen>
     <dimen name="smallTextSize">18sp</dimen>
+    <string name="app_name">RiFaECoM</string>
 </resources>
