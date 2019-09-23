@@ -8,7 +8,7 @@
     android:clickable="true">
 
     <ImageView
-        android:id="@+id/appLogoImageR"
+        android:id="@+id/cappLogoImageR"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:src="@drawable/applogo"
@@ -18,12 +18,12 @@
         android:layout_marginRight="20dp"/>
 
     <EditText
-        android:id="@+id/userEmailOrPhoneR"
+        android:id="@+id/cuserEmailOrPhoneR"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/appLogoImageR"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_above="@+id/cuserPasswordR"
         android:background="@drawable/intputedittext"
         android:hint="Enter Email"
         android:textColor="@android:color/black"
@@ -33,10 +33,10 @@
         android:layout_marginTop="50dp"/>
 
     <EditText
-        android:id="@+id/userPasswordR"
+        android:id="@+id/cuserPasswordR"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/userEmailOrPhoneR"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/intputedittext"
@@ -49,16 +49,25 @@
         android:textSize="@dimen/smallTextSize" />
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/createAccountButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/signinbutton"
-        android:layout_below="@+id/userPasswordR"
+        android:layout_below="@+id/cuserPasswordR"
         android:layout_marginTop="25dp"
         android:text="Create"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5px"
+        android:textSize="10sp"
+        android:text="| jstrfaheem065@gmail.com | University of Kelaniya |"
+        android:textAlignment="center"/>
 
 </RelativeLayout>
