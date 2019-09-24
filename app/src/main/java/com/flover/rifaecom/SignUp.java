@@ -34,8 +34,8 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         createAccountButton = findViewById(R.id.createAccountButton);
-        userEmailAddress = findViewById(R.id.cuserEmailOrPhoneR);
-        userPassword = findViewById(R.id.cuserPasswordR);
+        userEmailAddress = findViewById(R.id.cUserEmail);
+        userPassword = findViewById(R.id.cUserPasswordR);
         loadingBar = new ProgressDialog(this);
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -87,36 +87,49 @@ public class SignUp extends AppCompatActivity {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!(dataSnapshot.child("USERS").child(emailId).exists())){
-                    HashMap<String, Object> userDataMap = new HashMap<>();
-                    userDataMap.put("Email", emailId);
-                    userDataMap.put("Password", password);
+                String spaceRemovedEmailId = emailId.replaceAll("\\s+", "");
+                String validEmailId = null;
+                try{
+                    validEmailId = emailId.substring(0, emailId.indexOf('@'));
+                }catch (IndexOutOfBoundsException e){
+                    Toast.makeText(getBaseContext(), "Enter a valid email!", Toast.LENGTH_SHORT).show();
+                }
 
-                    rootRef.child("USERS").child(emailId).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(getBaseContext(), "Successfully created account!", Toast.LENGTH_LONG).show();
-                                loadingBar.dismiss();
-                                Intent intent = new Intent(SignUp.this, MainActivity.class);
-                                startActivity(intent);
-                            }else {
-                                loadingBar.dismiss();
-                                Toast.makeText(getBaseContext(), "Network error!", Toast.LENGTH_LONG).show();
+                if ((validEmailId!=null)) {
+                    if (!(dataSnapshot.child("USERS").child(validEmailId).exists())) {
+                        HashMap<String, Object> userDataMap = new HashMap<>();
+                        userDataMap.put("Email", spaceRemovedEmailId);
+                        userDataMap.put("Password", password);
+
+                        rootRef.child("USERS").child(validEmailId).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getBaseContext(), "Successfully created account!", Toast.LENGTH_LONG).show();
+                                    loadingBar.dismiss();
+                                    Intent intent = new Intent(SignUp.this, MainActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    loadingBar.dismiss();
+                                    Toast.makeText(getBaseContext(), "Network error!", Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                    });
+                        });
 
+                    } else {
+                        Toast.makeText(getBaseContext(), "This " + emailId + " already exist!", Toast.LENGTH_LONG).show();
+                        loadingBar.dismiss();
+                        Toast.makeText(getBaseContext(), "Try again using another email id!", Toast.LENGTH_LONG).show();
+                    }
                 }else {
-                    Toast.makeText(getBaseContext(), "This " + emailId + " already exist!", Toast.LENGTH_LONG).show();
                     loadingBar.dismiss();
-                    Toast.makeText(getBaseContext(), "Try again using another email id!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                loadingBar.dismiss();
+                Toast.makeText(getBaseContext(), "Database error!", Toast.LENGTH_LONG).show();
             }
         });
     }

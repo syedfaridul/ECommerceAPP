@@ -32,7 +32,7 @@
         android:textStyle="bold|italic"/>
 
     <EditText
-        android:id="@+id/userEmailOrPhone"
+        android:id="@+id/userEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/appInstruction"
@@ -50,7 +50,7 @@
         android:id="@+id/userPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/userEmailOrPhone"
+        android:layout_below="@+id/userEmail"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/intputedittext"

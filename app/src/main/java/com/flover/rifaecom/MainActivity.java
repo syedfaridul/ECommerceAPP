@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.signUpButton:
-                Intent registration = new Intent(getBaseContext(), SignUp.class);
+                Intent registration = new Intent(getBaseContext(), SignUp2.class);
                 startActivity(registration);
         }
     }
