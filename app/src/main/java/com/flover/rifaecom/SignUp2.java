@@ -12,6 +12,12 @@ import com.flover.rifaecom.operation.initializer.OnClickButtonInitializer;
 
 public class SignUp2 extends AppCompatActivity implements View.OnClickListener{
     SignUpOperationFactory anyOperation;
+    public  String test = null;
+
+    public String getTest() {
+        return test;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

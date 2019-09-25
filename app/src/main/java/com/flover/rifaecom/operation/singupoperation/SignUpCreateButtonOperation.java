@@ -6,16 +6,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.flover.rifaecom.R;
-import com.flover.rifaecom.operation.singupoperation.repository.Repository;
-import com.flover.rifaecom.operation.singupoperation.repository.UpdateFirebaseDataRepository;
+import com.flover.rifaecom.repository.Repository;
+import com.flover.rifaecom.repository.FirebaseDataRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class SignUpCreateButtonOperation implements SignUpOperation {
-    private final String userDataRootReference = "USERS";
-    private final String userEmailReference = "Email";
-    private final String userPasswordReference = "Password";
+    public final String userDataRootReference = "USERS";
+    public final String userEmailReference = "Email";
+    public final String userPasswordReference = "Password";
+
+    private ProgressDialog loadingBar;
 
     @Override
     public void perform(Activity anyActivity) {
@@ -28,13 +31,12 @@ public class SignUpCreateButtonOperation implements SignUpOperation {
         email = email.replaceAll("\\s+", "");
         String userName = null;
 
-        ProgressDialog loadingBar = new ProgressDialog(anyActivity);
-
         if(email.isEmpty()){
             Toast.makeText(anyActivity, "Enter valid email!", Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){
             Toast.makeText(anyActivity, "Enter valid password!", Toast.LENGTH_SHORT).show();
         }else {
+            loadingBar = new ProgressDialog(anyActivity);
             loadingBar.setTitle("Please wait!");
             loadingBar.setMessage("Creating new account,\nThis won't take much time!");
             loadingBar.show();
@@ -42,16 +44,31 @@ public class SignUpCreateButtonOperation implements SignUpOperation {
                 userName = email.substring(0, email.indexOf('@'));
             }catch (IndexOutOfBoundsException e){
                 Toast.makeText(anyActivity, "Enter valid email, \nExample : jstrfaheem065@gmail.com!", Toast.LENGTH_SHORT).show();
-                loadingBar.dismiss();
             }
 
             if(userName!=null){
                 Map<String, String> dataSet = new HashMap<>();
                 dataSet.put(userEmailReference, email);
                 dataSet.put(userPasswordReference, password);
-                Repository firebaseDataRepository = new UpdateFirebaseDataRepository(userDataRootReference);
-                firebaseDataRepository.updateData(anyActivity);
+                Repository firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
+                firebaseDataRepository.updateData(dataSet);
+
+                Map<String, Boolean> allFlags = firebaseDataRepository.getAllFlags();
+
+                if(allFlags.get("isUpdateDataTaskComplete")){
+                    Toast.makeText(anyActivity, "Your account was created successfully!", Toast.LENGTH_SHORT).show();
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else if(allFlags.get("isUserPrivateKeyExist")){
+                    Toast.makeText(anyActivity, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
+                }else if (allFlags.get("isUpdateOnCancelled")){
+                    Toast.makeText(anyActivity, "Database error occurred!", Toast.LENGTH_SHORT).show();
+                }
                 loadingBar.dismiss();
+
             }
         }
     }
