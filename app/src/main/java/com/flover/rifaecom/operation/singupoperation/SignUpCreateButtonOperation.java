@@ -11,16 +11,24 @@ import com.flover.rifaecom.repository.FirebaseDataRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SignUpCreateButtonOperation implements SignUpOperation {
+public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
     public final String userDataRootReference = "USERS";
     public final String userEmailReference = "Email";
     public final String userPasswordReference = "Password";
 
     private ProgressDialog loadingBar;
+    Map<String, Boolean> allFlags;
+    private Activity anyActivity2;
+
 
     @Override
     public void perform(Activity anyActivity) {
+        this.anyActivity2 = anyActivity;
+
+
         EditText emailEditText = anyActivity.findViewById(R.id.cUserEmail);
         EditText passwordEditText = anyActivity.findViewById(R.id.cUserPasswordR);
 
@@ -45,27 +53,38 @@ public class SignUpCreateButtonOperation implements SignUpOperation {
                 loadingBar = new ProgressDialog(anyActivity);
                 loadingBar.setTitle("Please wait!");
                 loadingBar.setMessage("Creating new account,\nThis won't take much time!");
+
+
                 loadingBar.show();
 
                 Map<String, String> dataSet = new HashMap<>();
                 dataSet.put(userEmailReference, email);
                 dataSet.put(userPasswordReference, password);
                 Repository firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
-                firebaseDataRepository.updateData(anyActivity, dataSet);
+
+                ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
+                firebaseDataRepository.updateData(/*anyActivity,*/ dataSet);
+
 
                 /*
+                Before Observer pattern!
                 Map<String, Boolean> allFlags = firebaseDataRepository.getAllFlags();
-
-                if(allFlags.get("isUpdateDataTaskComplete")){
-                    Toast.makeText(anyActivity, "Your account was created successfully!", Toast.LENGTH_SHORT).show();
-                }else if(allFlags.get("isUserPrivateKeyExist")){
-                    Toast.makeText(anyActivity, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
-                }else if (allFlags.get("isUpdateOnCancelled")){
-                    Toast.makeText(anyActivity, "Database error occurred!", Toast.LENGTH_SHORT).show();
-                }
                 */
-                loadingBar.dismiss();
             }
         }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        allFlags = ((Repository)observable).getAllFlags();
+
+        if(allFlags.get("isUpdateDataTaskComplete")){
+            Toast.makeText(this.anyActivity2, "Your account was created successfully!", Toast.LENGTH_SHORT).show();
+        }else if(allFlags.get("isUserPrivateKeyExist")){
+            Toast.makeText(this.anyActivity2, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
+        }else if (allFlags.get("isUpdateOnCancelled")){
+            Toast.makeText(this.anyActivity2, "Database error occurred!", Toast.LENGTH_SHORT).show();
+        }
+        loadingBar.dismiss();
     }
 }

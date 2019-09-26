@@ -14,8 +14,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
-public class FirebaseDataRepository implements Repository{
+public class FirebaseDataRepository extends Observable implements Repository{
     private static boolean isUserPrivateKeyExist = false;
     private String userPrivateKeyExistFlag = "isUserPrivateKeyExist";
     private static boolean isUpdateDataTaskComplete = false;
@@ -39,7 +40,7 @@ public class FirebaseDataRepository implements Repository{
     }
 
     @Override
-    public void updateData(final Activity anyActivity, final Map dataSet) {
+    public void updateData(/*final Activity anyActivity,*/ final Map dataSet) {
         final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
         rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -47,17 +48,21 @@ public class FirebaseDataRepository implements Repository{
                 if(!(dataSnapshot.child(userDataRootReference).child(userPrivateKey).exists())){
                     rootReference.child(userDataRootReference).child(userPrivateKey).updateChildren(dataSet);
                     isUpdateDataTaskComplete = true;
-                    Toast.makeText(anyActivity, "Account created!", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(anyActivity, "Account created!", Toast.LENGTH_SHORT).show();
                 }else {
                     isUserPrivateKeyExist = true;
-                    Toast.makeText(anyActivity, "Email exist!", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(anyActivity, "Email exist!", Toast.LENGTH_SHORT).show();
                 }
+                setChanged();
+                notifyObservers();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 isUpdateOnCancelled = true;
-                Toast.makeText(anyActivity, "Database Error!", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(anyActivity, "Database Error!", Toast.LENGTH_SHORT).show();
+                setChanged();
+                notifyObservers();
             }
         });
     }
@@ -67,7 +72,6 @@ public class FirebaseDataRepository implements Repository{
         allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
         allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
-
         return allFlags;
     }
 
