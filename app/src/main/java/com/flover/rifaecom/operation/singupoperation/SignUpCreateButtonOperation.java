@@ -21,6 +21,7 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
 
     private ProgressDialog loadingBar;
     Map<String, Boolean> allFlags;
+    // Want to find alternative
     private Activity anyActivity2;
 
 
@@ -80,11 +81,39 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
 
         if(allFlags.get("isUpdateDataTaskComplete")){
             Toast.makeText(this.anyActivity2, "Your account was created successfully!", Toast.LENGTH_SHORT).show();
+
+            final Thread destroyActivityThread = new Thread(){
+                @Override
+                public void run(){
+                    try {
+                        Thread.sleep(2000);
+                        anyActivity2.finish();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            destroyActivityThread.start();
+
         }else if(allFlags.get("isUserPrivateKeyExist")){
             Toast.makeText(this.anyActivity2, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
         }else if (allFlags.get("isUpdateOnCancelled")){
             Toast.makeText(this.anyActivity2, "Database error occurred!", Toast.LENGTH_SHORT).show();
         }
-        loadingBar.dismiss();
+
+        final Thread destroyLoadingBarThread = new Thread(){
+            @Override
+            public void run(){
+                try {
+                    Thread.sleep(2000);
+                    loadingBar.dismiss();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        destroyLoadingBarThread.start();
     }
 }
