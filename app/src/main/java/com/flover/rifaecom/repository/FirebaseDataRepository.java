@@ -1,19 +1,15 @@
 package com.flover.rifaecom.repository;
 
-
-import android.provider.ContactsContract;
-
 import androidx.annotation.NonNull;
 
+import com.flover.rifaecom.data.UserData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -67,6 +63,30 @@ public class FirebaseDataRepository extends Observable implements Repository{
             }
         });
     }
+
+    UserData dataFromFirebase;
+    public void getData(){
+        final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
+        rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if((dataSnapshot.child(userDataRootReference).child(userPrivateKey).exists())){
+                    dataFromFirebase = dataSnapshot.child(userDataRootReference).child(userPrivateKey).getValue(UserData.class);
+                    setChanged();
+                    notifyObservers();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public UserData getDataF(){
+        return dataFromFirebase;
+    }
+
 
     @Override
     public Map getAllFlags() {

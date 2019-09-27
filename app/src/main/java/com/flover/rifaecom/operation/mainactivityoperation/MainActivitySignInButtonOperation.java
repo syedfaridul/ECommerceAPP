@@ -11,8 +11,10 @@ import com.flover.rifaecom.repository.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MainActivitySignInButtonOperation implements MainActivityOperation{
+public class MainActivitySignInButtonOperation implements MainActivityOperation, Observer {
     private Activity mainActivity;
     private String email;
     private String password;
@@ -23,6 +25,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation{
 
 
     private ProgressDialog loadingBar;
+    FirebaseDataRepository firebaseDataRepository;
 
     public MainActivitySignInButtonOperation(Activity mainActivity){
         this.mainActivity = mainActivity;
@@ -54,7 +57,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation{
             if ((userName!=null)&&(!userName.equals(""))){
                 loadingBar = new ProgressDialog(mainActivity);
                 loadingBar.setTitle("Please wait!");
-                loadingBar.setMessage("Creating new account,\nThis won't take much time!");
+                loadingBar.setMessage("Waiting for server response!");
 
 
                 loadingBar.show();
@@ -62,10 +65,20 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation{
                 Map<String, String> dataSet = new HashMap<>();
                 dataSet.put(userEmailReference, email);
                 dataSet.put(userPasswordReference, password);
-                Repository firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
+                firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
+                firebaseDataRepository.addObserver(this);
+
+                firebaseDataRepository.getData();
+
             }else {
                 Toast.makeText(mainActivity, "Can't accept empty email!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        loadingBar.dismiss();
+        firebaseDataRepository.getDataF();
     }
 }
