@@ -1,4 +1,4 @@
-package com.flover.rifaecom.operation.singupoperation;
+package com.flover.rifaecom.operation.singupactivityoperation;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
+public class SignUpActivityCreateButtonOperation implements SignUpActivityOperation, Observer {
     public final String userDataRootReference = "USERS";
     public final String userEmailReference = "Email";
     public final String userPasswordReference = "Password";
@@ -22,16 +22,18 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
     private ProgressDialog loadingBar;
     Map<String, Boolean> allFlags;
     // Want to find alternative
-    private Activity anyActivity2;
+    private Activity signUpActivity;
 
+    public SignUpActivityCreateButtonOperation(Activity signUpActivity) {
+        this.signUpActivity = signUpActivity;
+    }
 
     @Override
-    public void perform(Activity anyActivity) {
-        this.anyActivity2 = anyActivity;
+    public void perform() {
 
 
-        EditText emailEditText = anyActivity.findViewById(R.id.cUserEmail);
-        EditText passwordEditText = anyActivity.findViewById(R.id.cUserPasswordR);
+        EditText emailEditText = signUpActivity.findViewById(R.id.cUserEmail);
+        EditText passwordEditText = signUpActivity.findViewById(R.id.cUserPasswordR);
 
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -40,18 +42,18 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
         String userName = null;
 
         if(email.isEmpty()){
-            Toast.makeText(anyActivity, "Enter valid email!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(signUpActivity, "Enter valid email!", Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){
-            Toast.makeText(anyActivity, "Enter valid password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(signUpActivity, "Enter valid password!", Toast.LENGTH_SHORT).show();
         }else {
             try{
                 userName = email.substring(0, email.indexOf('@'));
             }catch (IndexOutOfBoundsException e){
-                Toast.makeText(anyActivity, "Enter valid email, \nExample : jstrfaheem065@gmail.com!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(signUpActivity, "Enter valid email, \nExample : jstrfaheem065@gmail.com!", Toast.LENGTH_SHORT).show();
             }
 
-            if(userName!=null){
-                loadingBar = new ProgressDialog(anyActivity);
+            if((userName!=null)&&(!userName.equals(""))){
+                loadingBar = new ProgressDialog(signUpActivity);
                 loadingBar.setTitle("Please wait!");
                 loadingBar.setMessage("Creating new account,\nThis won't take much time!");
 
@@ -71,6 +73,8 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
                 Before Observer pattern!
                 Map<String, Boolean> allFlags = firebaseDataRepository.getAllFlags();
                 */
+            }else {
+                Toast.makeText(signUpActivity, "Can't accept empty email!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -80,14 +84,14 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
         allFlags = ((Repository)observable).getAllFlags();
 
         if(allFlags.get("isUpdateDataTaskComplete")){
-            Toast.makeText(this.anyActivity2, "Your account was created successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(signUpActivity, "Your account was created successfully!", Toast.LENGTH_SHORT).show();
 
             final Thread destroyActivityThread = new Thread(){
                 @Override
                 public void run(){
                     try {
                         Thread.sleep(2000);
-                        anyActivity2.finish();
+                        signUpActivity.finish();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -97,9 +101,9 @@ public class SignUpCreateButtonOperation implements SignUpOperation, Observer {
             destroyActivityThread.start();
 
         }else if(allFlags.get("isUserPrivateKeyExist")){
-            Toast.makeText(this.anyActivity2, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(signUpActivity, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
         }else if (allFlags.get("isUpdateOnCancelled")){
-            Toast.makeText(this.anyActivity2, "Database error occurred!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(signUpActivity, "Database error occurred!", Toast.LENGTH_SHORT).show();
         }
 
         final Thread destroyLoadingBarThread = new Thread(){

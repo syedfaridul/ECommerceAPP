@@ -2,28 +2,40 @@ package com.flover.rifaecom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
+import com.flover.rifaecom.operation.initializer.ClickButtonInitializer;
+import com.flover.rifaecom.operation.initializer.OnClickButtonInitializer;
+import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperation;
+import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperationFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    MainActivityOperationFactory anyOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button test = findViewById(R.id.signUpButton);
-        test.setOnClickListener(this);
+        /*
+        final Button signUpButton = findViewById(R.id.signUpButton);
+        signUpButton.setOnClickListener(this);
+        final Button signInButton = findViewById(R.id.signInButton);
+        signInButton.setOnClickListener(this);
+        */
+
+        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer();
+        initializeOnClickButton.initialize(R.id.signUpButton, this);
+        initializeOnClickButton.initialize(R.id.signInButton, this);
+
+        anyOperation = new MainActivityOperationFactory();
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.signUpButton:
-                Intent registration = new Intent(getBaseContext(), SignUp.class);
-                startActivity(registration);
-        }
+        MainActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId(), this);
+        anyOperationInstance.perform();
     }
 }
