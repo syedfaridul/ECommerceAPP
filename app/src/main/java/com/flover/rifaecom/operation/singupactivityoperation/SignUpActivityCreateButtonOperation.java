@@ -81,7 +81,7 @@ public class SignUpActivityCreateButtonOperation implements SignUpActivityOperat
 
     @Override
     public void update(Observable observable, Object o) {
-        allFlags = ((Repository)observable).getAllFlags();
+        allFlags = ((Repository)observable).returnAllFlags();
 
         if(allFlags.get("isUpdateDataTaskComplete")){
             Toast.makeText(signUpActivity, "Your account was created successfully!", Toast.LENGTH_SHORT).show();

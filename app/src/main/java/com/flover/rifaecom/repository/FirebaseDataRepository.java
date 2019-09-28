@@ -2,7 +2,6 @@ package com.flover.rifaecom.repository;
 
 import androidx.annotation.NonNull;
 
-import com.flover.rifaecom.data.UserData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +19,8 @@ public class FirebaseDataRepository extends Observable implements Repository{
     private String updateDataTaskCompleteFlag = "isUpdateDataTaskComplete";
     private static boolean isUpdateOnCancelled = false;
     private static String updateOnCancelledFlag = "isUpdateOnCancelled";
+
+    private Object dataFromFirebase;
 
 
     private Map<String, Boolean> allFlags;
@@ -64,14 +65,23 @@ public class FirebaseDataRepository extends Observable implements Repository{
         });
     }
 
-    UserData dataFromFirebase;
-    public void getData(){
+
+    @Override
+    public Map returnAllFlags() {
+        allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
+        allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
+        allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
+        return allFlags;
+    }
+
+    @Override
+    public void getData() {
         final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
         rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if((dataSnapshot.child(userDataRootReference).child(userPrivateKey).exists())){
-                    dataFromFirebase = dataSnapshot.child(userDataRootReference).child(userPrivateKey).getValue(UserData.class);
+                    dataFromFirebase = dataSnapshot.child(userDataRootReference).child(userPrivateKey).getValue(Object.class);
                     setChanged();
                     notifyObservers();
                 }
@@ -83,17 +93,9 @@ public class FirebaseDataRepository extends Observable implements Repository{
         });
     }
 
-    public UserData getDataF(){
-        return dataFromFirebase;
-    }
-
-
     @Override
-    public Map getAllFlags() {
-        allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
-        allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
-        allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
-        return allFlags;
+    public Object returnData() {
+        return dataFromFirebase;
     }
 
 

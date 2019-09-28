@@ -4,7 +4,9 @@ package com.flover.rifaecom.repository;
 
 import java.util.Map;
 
-public interface Repository{
+public interface Repository<anyData>{
     void updateData(/*Activity anyActivity,*/ Map dataSet);
-    Map getAllFlags();
+    Map returnAllFlags();
+    void getData();
+    anyData returnData();
 }

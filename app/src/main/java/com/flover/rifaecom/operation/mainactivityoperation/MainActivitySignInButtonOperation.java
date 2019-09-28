@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.data.UserData;
 import com.flover.rifaecom.repository.FirebaseDataRepository;
 import com.flover.rifaecom.repository.Repository;
 
@@ -25,7 +26,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
 
     private ProgressDialog loadingBar;
-    FirebaseDataRepository firebaseDataRepository;
+    Repository<UserData> firebaseDataRepository;
 
     public MainActivitySignInButtonOperation(Activity mainActivity){
         this.mainActivity = mainActivity;
@@ -66,7 +67,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                 dataSet.put(userEmailReference, email);
                 dataSet.put(userPasswordReference, password);
                 firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
-                firebaseDataRepository.addObserver(this);
+                ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
 
                 firebaseDataRepository.getData();
 
@@ -78,7 +79,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
     @Override
     public void update(Observable observable, Object o) {
+        UserData userData = firebaseDataRepository.returnData();
         loadingBar.dismiss();
-        firebaseDataRepository.getDataF();
     }
 }
