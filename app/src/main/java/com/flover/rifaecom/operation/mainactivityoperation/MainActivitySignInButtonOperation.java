@@ -82,13 +82,17 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
     public void update(Observable observable, Object o) {
         Map userData = (HashMap) firebaseDataRepository.returnData();
         Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
-        if(email.equals(userData.get(userEmailReference))){
-            if(password.equals(userData.get(userPasswordReference))){
-                Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
-                mainActivity.startActivity(homePageIntent);
+        try {
+            if(email.equals(userData.get(userEmailReference))){
+                if(password.equals(userData.get(userPasswordReference))){
+                    Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
+                    mainActivity.startActivity(homePageIntent);
+                }
+            }else if (allFlags.get("isGettingDataErrorOccurred")){
+                Toast.makeText(mainActivity, "There was a server error occurred!", Toast.LENGTH_SHORT).show();
             }
-        }else if (allFlags.get("isGettingDataErrorOccurred")){
-            Toast.makeText(mainActivity, "There was a server error occurred!", Toast.LENGTH_SHORT).show();
+        }catch (NullPointerException e){
+            Toast.makeText(mainActivity, "No account found, Please create a new account!", Toast.LENGTH_SHORT).show();
         }
         loadingBar.dismiss();
     }

@@ -19,8 +19,10 @@ public class FirebaseDataRepository extends Observable implements Repository{
     private String updateDataTaskCompleteFlag = "isUpdateDataTaskComplete";
     private boolean isUpdateOnCancelled = false;
     private String updateOnCancelledFlag = "isUpdateOnCancelled";
-    private String gettingDataError = "isGettingDataErrorOccurred";
+    private String gettingDataErrorFlag = "isGettingDataErrorOccurred";
     private boolean isGettingDataErrorOccurred = false;
+    private String  dataFetchedFlag = "isDataFetched";
+    private boolean isDataFatched = false;
 
     private Object dataFromFirebase;
 
@@ -37,7 +39,8 @@ public class FirebaseDataRepository extends Observable implements Repository{
         // allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
         allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
-        allFlags.put(gettingDataError, isGettingDataErrorOccurred);
+        allFlags.put(gettingDataErrorFlag, isGettingDataErrorOccurred);
+        allFlags.put(dataFetchedFlag, isDataFatched);
     }
 
     @Override
@@ -77,7 +80,8 @@ public class FirebaseDataRepository extends Observable implements Repository{
         allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
         // allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
-        allFlags.put(gettingDataError, isGettingDataErrorOccurred);
+        allFlags.put(gettingDataErrorFlag, isGettingDataErrorOccurred);
+        allFlags.put(dataFetchedFlag, isDataFatched);
         return allFlags;
     }
 
@@ -89,9 +93,10 @@ public class FirebaseDataRepository extends Observable implements Repository{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if((dataSnapshot.child(userDataRootReference).child(userPrivateKey).exists())){
                     dataFromFirebase = dataSnapshot.child(userDataRootReference).child(userPrivateKey).getValue(Object.class);
-                    setChanged();
-                    notifyObservers();
+                    isDataFatched = true;
                 }
+                setChanged();
+                notifyObservers();
             }
 
             @Override
