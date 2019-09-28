@@ -22,19 +22,29 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
     private String password;
 
     public final String userDataRootReference = "USERS";
-    public final String userEmailReference = "Email";
-    public final String userPasswordReference = "Password";
-
+    public final String EmailReference = "Email";
+    public final String PasswordReference = "Password";
+    private final String adminDataRootReference = "ADMINS";
+    private String dataRootReference;
 
     private ProgressDialog loadingBar;
     Repository firebaseDataRepository;
+    private boolean isAdmin;
 
-    public MainActivitySignInButtonOperation(Activity mainActivity){
+    public MainActivitySignInButtonOperation(Activity mainActivity, boolean isAdmin){
         this.mainActivity = mainActivity;
+        this.isAdmin = isAdmin;
     }
 
     @Override
     public void perform() {
+
+        if(isAdmin){
+            dataRootReference = adminDataRootReference;
+        }else {
+            dataRootReference = userDataRootReference;
+        }
+
         EditText emailEditText = mainActivity.findViewById(R.id.userEmail);
         EditText passwordEditTest = mainActivity.findViewById(R.id.userPassword);
 
@@ -65,9 +75,9 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                 loadingBar.show();
 
                 Map<String, String> dataSet = new HashMap<>();
-                dataSet.put(userEmailReference, email);
-                dataSet.put(userPasswordReference, password);
-                firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
+                dataSet.put(EmailReference, email);
+                dataSet.put(PasswordReference, password);
+                firebaseDataRepository = new FirebaseDataRepository(dataRootReference, userName);
                 ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
 
                 firebaseDataRepository.getData();
@@ -83,10 +93,14 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         Map userData = (HashMap) firebaseDataRepository.returnData();
         Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
         try {
-            if(email.equals(userData.get(userEmailReference))){
-                if(password.equals(userData.get(userPasswordReference))){
+            if(email.equals(userData.get(EmailReference))){
+                if(password.equals(userData.get(PasswordReference))&&(!isAdmin)){
                     Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
                     mainActivity.startActivity(homePageIntent);
+                }else if (password.equals(userData.get(PasswordReference))&&(isAdmin)){
+                    Toast.makeText(mainActivity, "You are an Admin", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(mainActivity, "Incorrect Username or Password!", Toast.LENGTH_SHORT).show();
                 }
             }else if (allFlags.get("isGettingDataErrorOccurred")){
                 Toast.makeText(mainActivity, "There was a server error occurred!", Toast.LENGTH_SHORT).show();
@@ -94,6 +108,18 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         }catch (NullPointerException e){
             Toast.makeText(mainActivity, "No account found, Please create a new account!", Toast.LENGTH_SHORT).show();
         }
-        loadingBar.dismiss();
+        final Thread destroyDialogBoxThread = new Thread(){
+            @Override
+            public void run(){
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                loadingBar.dismiss();
+            }
+        };
+
+        destroyDialogBoxThread.start();
     }
 }

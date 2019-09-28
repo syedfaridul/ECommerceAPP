@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background_activity_for_mainactivity"
-    android:clickable="true">
+    android:background="@drawable/background_activity_for_mainactivity">
 
     <ImageView
         android:id="@+id/appLogoImage"
@@ -69,7 +68,7 @@
         android:background="@drawable/signinbutton"
         android:layout_below="@+id/userPassword"
         android:layout_marginTop="25dp"
-        android:text="SignIn"
+        android:text="SignIn (USER)"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -87,6 +86,40 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/areYouAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signInButton"
+        android:layout_marginLeft="30dp"
+        android:text="Are you an admin (Yes/No) ?"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/yesIam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signInButton"
+        android:gravity="center"
+        android:text="| Yes |"
+        android:layout_marginLeft="25dp"
+        android:layout_toEndOf="@+id/areYouAdmin"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/noIamNot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signInButton"
+        android:gravity="center"
+        android:text="| No |"
+        android:layout_marginLeft="30dp"
+        android:layout_toEndOf="@+id/yesIam"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:layout_width="match_parent"

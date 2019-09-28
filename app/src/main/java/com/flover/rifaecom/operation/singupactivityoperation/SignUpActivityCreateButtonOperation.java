@@ -16,21 +16,29 @@ import java.util.Observer;
 
 public class SignUpActivityCreateButtonOperation implements SignUpActivityOperation, Observer {
     public final String userDataRootReference = "USERS";
-    public final String userEmailReference = "Email";
-    public final String userPasswordReference = "Password";
+    public final String EmailReference = "Email";
+    public final String PasswordReference = "Password";
+    private final String adminDataRootReference = "ADMINS";
+    private String dataRootReference;
 
     private ProgressDialog loadingBar;
     Map<String, Boolean> allFlags;
     // Want to find alternative
     private Activity signUpActivity;
+    private boolean isAdmin;
 
-    public SignUpActivityCreateButtonOperation(Activity signUpActivity) {
+    public SignUpActivityCreateButtonOperation(Activity signUpActivity, boolean isAdmin) {
         this.signUpActivity = signUpActivity;
+        this.isAdmin = isAdmin;
     }
 
     @Override
     public void perform() {
-
+        if(isAdmin){
+            dataRootReference = adminDataRootReference;
+        }else {
+            dataRootReference = userDataRootReference;
+        }
 
         EditText emailEditText = signUpActivity.findViewById(R.id.cUserEmail);
         EditText passwordEditText = signUpActivity.findViewById(R.id.cUserPasswordR);
@@ -61,9 +69,9 @@ public class SignUpActivityCreateButtonOperation implements SignUpActivityOperat
                 loadingBar.show();
 
                 Map<String, String> dataSet = new HashMap<>();
-                dataSet.put(userEmailReference, email);
-                dataSet.put(userPasswordReference, password);
-                Repository firebaseDataRepository = new FirebaseDataRepository(userDataRootReference, userName);
+                dataSet.put(EmailReference, email);
+                dataSet.put(PasswordReference, password);
+                Repository firebaseDataRepository = new FirebaseDataRepository(dataRootReference, userName);
 
                 ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
                 firebaseDataRepository.updateData(/*anyActivity,*/ dataSet);

@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.flover.rifaecom.operation.initializer.OnClickTextInitializer;
 import com.flover.rifaecom.operation.singupactivityoperation.SignUpActivityOperation;
 import com.flover.rifaecom.operation.singupactivityoperation.SignUpActivityOperationFactory;
 import com.flover.rifaecom.operation.initializer.ClickButtonInitializer;
@@ -19,8 +20,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
 
         anyOperation = new SignUpActivityOperationFactory();
-        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer();
-        initializeOnClickButton.initialize(R.id.createAccountButton, this);
+        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
+        initializeOnClickButton.initialize(R.id.createAccountButton);
+
+        ClickButtonInitializer initializerOnClickText = new OnClickTextInitializer(this);
+        initializerOnClickText.initialize(R.id.yesIam);
+        initializerOnClickText.initialize(R.id.noIamNot);
+
     }
 
     @Override

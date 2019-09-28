@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.flover.rifaecom.operation.initializer.ClickButtonInitializer;
 import com.flover.rifaecom.operation.initializer.OnClickButtonInitializer;
+import com.flover.rifaecom.operation.initializer.OnClickTextInitializer;
 import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperation;
 import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperationFactory;
 
@@ -26,9 +27,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInButton.setOnClickListener(this);
         */
 
-        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer();
-        initializeOnClickButton.initialize(R.id.signUpButton, this);
-        initializeOnClickButton.initialize(R.id.signInButton, this);
+        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
+        initializeOnClickButton.initialize(R.id.signUpButton);
+        initializeOnClickButton.initialize(R.id.signInButton);
+
+        ClickButtonInitializer initializerOnClickText = new OnClickTextInitializer(this);
+        initializerOnClickText.initialize(R.id.yesIam);
+        initializerOnClickText.initialize(R.id.noIamNot);
 
         anyOperation = new MainActivityOperationFactory();
     }

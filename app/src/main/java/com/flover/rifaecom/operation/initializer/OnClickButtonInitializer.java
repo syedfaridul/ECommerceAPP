@@ -5,9 +5,15 @@ import android.view.View;
 import android.widget.Button;
 
 public class OnClickButtonInitializer implements ClickButtonInitializer{
+    private Activity anyActivity;
+
+    public OnClickButtonInitializer(Activity anyActivity) {
+        this.anyActivity = anyActivity;
+    }
+
     @Override
-    public void initialize(int idOfButton, Activity activity) {
-        final Button anyButton = activity.findViewById(idOfButton);
-        anyButton.setOnClickListener((View.OnClickListener) activity);
+    public void initialize(int idOfButton) {
+        final Button anyButton = anyActivity.findViewById(idOfButton);
+        anyButton.setOnClickListener((View.OnClickListener) anyActivity);
     }
 }
