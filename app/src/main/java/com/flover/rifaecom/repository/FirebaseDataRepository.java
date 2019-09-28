@@ -13,12 +13,14 @@ import java.util.Map;
 import java.util.Observable;
 
 public class FirebaseDataRepository extends Observable implements Repository{
-    private static boolean isUserPrivateKeyExist = false;
-    private String userPrivateKeyExistFlag = "isUserPrivateKeyExist";
-    private static boolean isUpdateDataTaskComplete = false;
+    // private boolean isUserPrivateKeyExist = false;
+    // private String userPrivateKeyExistFlag = "isUserPrivateKeyExist";
+    private boolean isUpdateDataTaskComplete = false;
     private String updateDataTaskCompleteFlag = "isUpdateDataTaskComplete";
-    private static boolean isUpdateOnCancelled = false;
-    private static String updateOnCancelledFlag = "isUpdateOnCancelled";
+    private boolean isUpdateOnCancelled = false;
+    private String updateOnCancelledFlag = "isUpdateOnCancelled";
+    private String gettingDataError = "isGettingDataErrorOccurred";
+    private boolean isGettingDataErrorOccurred = false;
 
     private Object dataFromFirebase;
 
@@ -32,9 +34,10 @@ public class FirebaseDataRepository extends Observable implements Repository{
         this.userDataRootReference = userDataRootReference;
         this.userPrivateKey = userPrivateKey;
         allFlags = new HashMap<>();
-        allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
+        // allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
         allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
+        allFlags.put(gettingDataError, isGettingDataErrorOccurred);
     }
 
     @Override
@@ -47,10 +50,13 @@ public class FirebaseDataRepository extends Observable implements Repository{
                     rootReference.child(userDataRootReference).child(userPrivateKey).updateChildren(dataSet);
                     isUpdateDataTaskComplete = true;
                     // Toast.makeText(anyActivity, "Account created!", Toast.LENGTH_SHORT).show();
-                }else {
+                }
+                /*
+                else {
                     isUserPrivateKeyExist = true;
                     // Toast.makeText(anyActivity, "Email exist!", Toast.LENGTH_SHORT).show();
                 }
+                */
                 setChanged();
                 notifyObservers();
             }
@@ -69,8 +75,9 @@ public class FirebaseDataRepository extends Observable implements Repository{
     @Override
     public Map returnAllFlags() {
         allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
-        allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
+        // allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
+        allFlags.put(gettingDataError, isGettingDataErrorOccurred);
         return allFlags;
     }
 
@@ -89,6 +96,7 @@ public class FirebaseDataRepository extends Observable implements Repository{
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                isGettingDataErrorOccurred = true;
             }
         });
     }

@@ -2,11 +2,12 @@ package com.flover.rifaecom.operation.mainactivityoperation;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.flover.rifaecom.HomePageActivity;
 import com.flover.rifaecom.R;
-import com.flover.rifaecom.data.UserData;
 import com.flover.rifaecom.repository.FirebaseDataRepository;
 import com.flover.rifaecom.repository.Repository;
 
@@ -26,7 +27,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
 
     private ProgressDialog loadingBar;
-    Repository<UserData> firebaseDataRepository;
+    Repository firebaseDataRepository;
 
     public MainActivitySignInButtonOperation(Activity mainActivity){
         this.mainActivity = mainActivity;
@@ -79,7 +80,16 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
     @Override
     public void update(Observable observable, Object o) {
-        UserData userData = firebaseDataRepository.returnData();
+        Map userData = (HashMap) firebaseDataRepository.returnData();
+        Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
+        if(email.equals(userData.get(userEmailReference))){
+            if(password.equals(userData.get(userPasswordReference))){
+                Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
+                mainActivity.startActivity(homePageIntent);
+            }
+        }else if (allFlags.get("isGettingDataErrorOccurred")){
+            Toast.makeText(mainActivity, "There was a server error occurred!", Toast.LENGTH_SHORT).show();
+        }
         loadingBar.dismiss();
     }
 }

@@ -100,7 +100,7 @@ public class SignUpActivityCreateButtonOperation implements SignUpActivityOperat
 
             destroyActivityThread.start();
 
-        }else if(allFlags.get("isUserPrivateKeyExist")){
+        }else if(!allFlags.get("isUpdateDataTaskComplete")){
             Toast.makeText(signUpActivity, "There was an account already linked with this email!", Toast.LENGTH_SHORT).show();
         }else if (allFlags.get("isUpdateOnCancelled")){
             Toast.makeText(signUpActivity, "Database error occurred!", Toast.LENGTH_SHORT).show();
