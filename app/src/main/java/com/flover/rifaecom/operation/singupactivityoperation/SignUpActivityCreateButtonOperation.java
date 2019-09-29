@@ -16,8 +16,8 @@ import java.util.Observer;
 
 public class SignUpActivityCreateButtonOperation implements SignUpActivityOperation, Observer {
     public final String userDataRootReference = "USERS";
-    public final String EmailReference = "Email";
-    public final String PasswordReference = "Password";
+    public final String emailReference = "Email";
+    public final String passwordReference = "Password";
     private final String adminDataRootReference = "ADMINS";
     private String dataRootReference;
 
@@ -69,8 +69,8 @@ public class SignUpActivityCreateButtonOperation implements SignUpActivityOperat
                 loadingBar.show();
 
                 Map<String, String> dataSet = new HashMap<>();
-                dataSet.put(EmailReference, email);
-                dataSet.put(PasswordReference, password);
+                dataSet.put(emailReference, email);
+                dataSet.put(passwordReference, password);
                 Repository firebaseDataRepository = new FirebaseDataRepository(dataRootReference, userName);
 
                 ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);

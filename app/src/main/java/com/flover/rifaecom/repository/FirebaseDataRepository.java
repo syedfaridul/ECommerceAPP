@@ -111,5 +111,10 @@ public class FirebaseDataRepository extends Observable implements Repository{
         return dataFromFirebase;
     }
 
+    @Override
+    public void deleteData() {
+
+    }
+
 
 }

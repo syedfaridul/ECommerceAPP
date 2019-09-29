@@ -14,7 +14,9 @@ import com.flover.rifaecom.repository.FirebaseDataRepository;
 import com.flover.rifaecom.repository.PaperDataRepository;
 import com.flover.rifaecom.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,8 +27,8 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
     private String password;
 
     public final String userDataRootReference = "USERS";
-    public final String EmailReference = "Email";
-    public final String PasswordReference = "Password";
+    public final String emailReference = "Email";
+    public final String passwordReference = "Password";
     private final String adminDataRootReference = "ADMINS";
     private String dataRootReference;
 
@@ -37,6 +39,20 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
     public MainActivitySignInButtonOperation(Activity mainActivity, boolean isAdmin){
         this.mainActivity = mainActivity;
         this.isAdmin = isAdmin;
+
+        EditText emailEditText = mainActivity.findViewById(R.id.userEmail);
+        EditText passwordEditTest = mainActivity.findViewById(R.id.userPassword);
+
+        this.email = emailEditText.getText().toString();
+        this.password = passwordEditTest.getText().toString();
+    }
+
+    public MainActivitySignInButtonOperation(Activity mainActivity, String email, String password){
+        this.mainActivity = mainActivity;
+
+        this.email = email;
+        this.password = password;
+        this.isAdmin = false;
     }
 
     @Override
@@ -47,12 +63,6 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         }else {
             dataRootReference = userDataRootReference;
         }
-
-        EditText emailEditText = mainActivity.findViewById(R.id.userEmail);
-        EditText passwordEditTest = mainActivity.findViewById(R.id.userPassword);
-
-        email = emailEditText.getText().toString();
-        password = passwordEditTest.getText().toString();
 
         email = email.replaceAll("\\s+", "");
 
@@ -78,8 +88,8 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                 loadingBar.show();
 
                 Map<String, String> dataSet = new HashMap<>();
-                dataSet.put(EmailReference, email);
-                dataSet.put(PasswordReference, password);
+                dataSet.put(emailReference, email);
+                dataSet.put(passwordReference, password);
                 firebaseDataRepository = new FirebaseDataRepository(dataRootReference, userName);
                 ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
 
@@ -96,16 +106,19 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         Map allData = (HashMap) firebaseDataRepository.returnData();
         Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
         try {
-            if(email.equals(allData.get(EmailReference))){
+            if(email.equals(allData.get(emailReference))){
                 CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
-                if(password.equals(allData.get(PasswordReference))&&(!isAdmin)){
+                if(password.equals(allData.get(passwordReference))&&(!isAdmin)){
                     if (rememberMeCheckBox.isChecked()){
-                        Repository androidPaper = new PaperDataRepository(mainActivity, allData.keySet());
+
+                        // https://stackoverflow.com/questions/8892360/convert-set-to-list-without-creating-new-list
+                        List allKeys = new ArrayList(allData.keySet());
+                        Repository androidPaper = new PaperDataRepository(mainActivity, allKeys);
                         androidPaper.updateData(allData);
                     }
                     Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
                     mainActivity.startActivity(homePageIntent);
-                }else if (password.equals(allData.get(PasswordReference))&&(isAdmin)){
+                }else if (password.equals(allData.get(passwordReference))&&(isAdmin)){
                     Intent adminPageIntent = new Intent(mainActivity, AdminPageActivity.class);
                     mainActivity.startActivity(adminPageIntent);
                 }else {
@@ -130,5 +143,6 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         };
 
         destroyDialogBoxThread.start();
+        mainActivity.finish();
     }
 }

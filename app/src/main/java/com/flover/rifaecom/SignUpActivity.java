@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
     @Override
     public void onClick(View view) {
         SignUpActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId(), this);

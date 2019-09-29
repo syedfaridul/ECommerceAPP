@@ -9,4 +9,5 @@ public interface Repository{
     Map returnAllFlags();
     void getData();
     Object returnData();
+    void deleteData();
 }

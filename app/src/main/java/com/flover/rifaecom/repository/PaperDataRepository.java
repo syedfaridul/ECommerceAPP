@@ -3,13 +3,13 @@ package com.flover.rifaecom.repository;
 import android.app.Activity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import io.paperdb.Paper;
 
 public class PaperDataRepository implements Repository{
-    Set<String > allKeys;
+    List<String> allKeys;
 
     /*
     private boolean isUpdateDataTaskComplete = false;
@@ -24,7 +24,7 @@ public class PaperDataRepository implements Repository{
 
     Map dataFromPaper;
 
-    public PaperDataRepository(Activity anyActivity, Set allKeys){
+    public PaperDataRepository(Activity anyActivity, List allKeys){
         Paper.init(anyActivity);
         this.allKeys = allKeys;
         dataFromPaper = new HashMap();
@@ -52,5 +52,10 @@ public class PaperDataRepository implements Repository{
     @Override
     public Object returnData() {
         return dataFromPaper;
+    }
+
+    @Override
+    public void deleteData() {
+        Paper.book().destroy();
     }
 }

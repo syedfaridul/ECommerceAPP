@@ -6,6 +6,19 @@
     tools:context=".HomePageActivity">
 
     <TextView
+        android:id="@+id/homePageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="HOME PAGE"/>
+
+    <Button
+        android:id="@+id/signOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="SIGN OUT"
+        android:layout_toEndOf="@+id/homePageTitle"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Welcome To Shop Online!"
