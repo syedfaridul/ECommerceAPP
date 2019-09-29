@@ -25,7 +25,7 @@
         android:textColor="@color/colorPrimary"
         android:text="Find, Discover, Choose and Buy anything online,\nLogin Now!"
         android:textAlignment="center"
-        android:textSize="@dimen/normalTextSize"
+        android:textSize="@dimen/smallTextSize"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textStyle="bold|italic"/>
@@ -120,6 +120,24 @@
         android:layout_toEndOf="@+id/yesIam"
         android:layout_marginTop="20dp"
         android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/rememberMeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/areYouAdmin"
+        android:text="Remember Me"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/rememberMeCheckBox"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <CheckBox
+        android:id="@+id/rememberMeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_below="@+id/areYouAdmin"
+        android:layout_marginLeft="20dp"/>
 
     <TextView
         android:layout_width="match_parent"

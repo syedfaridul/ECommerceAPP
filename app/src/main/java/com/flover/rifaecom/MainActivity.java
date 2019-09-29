@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ClickButtonInitializer initializerOnClickText = new OnClickTextInitializer(this);
         initializerOnClickText.initialize(R.id.yesIam);
         initializerOnClickText.initialize(R.id.noIamNot);
+        initializerOnClickText.initialize(R.id.rememberMeText);
 
         anyOperation = new MainActivityOperationFactory();
     }

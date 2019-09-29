@@ -3,12 +3,15 @@ package com.flover.rifaecom.operation.mainactivityoperation;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.flover.rifaecom.AdminPageActivity;
 import com.flover.rifaecom.HomePageActivity;
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.repository.FirebaseDataRepository;
+import com.flover.rifaecom.repository.PaperDataRepository;
 import com.flover.rifaecom.repository.Repository;
 
 import java.util.HashMap;
@@ -90,15 +93,21 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
     @Override
     public void update(Observable observable, Object o) {
-        Map userData = (HashMap) firebaseDataRepository.returnData();
+        Map allData = (HashMap) firebaseDataRepository.returnData();
         Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
         try {
-            if(email.equals(userData.get(EmailReference))){
-                if(password.equals(userData.get(PasswordReference))&&(!isAdmin)){
+            if(email.equals(allData.get(EmailReference))){
+                CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
+                if(password.equals(allData.get(PasswordReference))&&(!isAdmin)){
+                    if (rememberMeCheckBox.isChecked()){
+                        Repository androidPaper = new PaperDataRepository(mainActivity, allData.keySet());
+                        androidPaper.updateData(allData);
+                    }
                     Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
                     mainActivity.startActivity(homePageIntent);
-                }else if (password.equals(userData.get(PasswordReference))&&(isAdmin)){
-                    Toast.makeText(mainActivity, "You are an Admin", Toast.LENGTH_SHORT).show();
+                }else if (password.equals(allData.get(PasswordReference))&&(isAdmin)){
+                    Intent adminPageIntent = new Intent(mainActivity, AdminPageActivity.class);
+                    mainActivity.startActivity(adminPageIntent);
                 }else {
                     Toast.makeText(mainActivity, "Incorrect Username or Password!", Toast.LENGTH_SHORT).show();
                 }

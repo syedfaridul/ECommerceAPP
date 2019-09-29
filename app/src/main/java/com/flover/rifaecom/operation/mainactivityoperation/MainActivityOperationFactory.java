@@ -19,6 +19,8 @@ public class MainActivityOperationFactory {
         }else if (anyButtonId==R.id.noIamNot){
             isAdmin = false;
             anyOperationInstance = new MainActivityUserButtonOperation(mainActivity);
+        }else if (anyButtonId==R.id.rememberMeText){
+            anyOperationInstance = new MainActivityRememberMeTextClickOperation(mainActivity);
         }
 
         return anyOperationInstance;
