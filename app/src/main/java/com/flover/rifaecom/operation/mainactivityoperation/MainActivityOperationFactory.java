@@ -6,7 +6,13 @@ import com.flover.rifaecom.R;
 
 public class MainActivityOperationFactory {
     private boolean isAdmin = false;
-    public MainActivityOperation getInstance(int anyButtonId, Activity mainActivity){
+    private Activity mainActivity;
+
+    public MainActivityOperationFactory(Activity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
+    public MainActivityOperation getInstance(int anyButtonId){
         MainActivityOperation anyOperationInstance = null;
 
         if(anyButtonId==R.id.signUpButton){

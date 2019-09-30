@@ -7,7 +7,13 @@ import com.flover.rifaecom.R;
 
 public class SignUpActivityOperationFactory {
     private boolean isAdmin = false;
-    public SignUpActivityOperation getInstance(int anyButtonId, Activity signUpActivity){
+    private Activity signUpActivity;
+
+    public SignUpActivityOperationFactory(Activity signUpActivity) {
+        this.signUpActivity = signUpActivity;
+    }
+
+    public SignUpActivityOperation getInstance(int anyButtonId){
         SignUpActivityOperation anyOperationInstance = null;
         if (R.id.createAccountButton==anyButtonId){
             anyOperationInstance = new SignUpActivityCreateButtonOperation(signUpActivity, isAdmin);

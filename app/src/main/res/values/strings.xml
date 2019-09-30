@@ -1,5 +1,11 @@
 <resources>
     <dimen name="normalTextSize">25sp</dimen>
     <dimen name="smallTextSize">18sp</dimen>
+    <dimen name="productPadding">2.5sp</dimen>
+
+    <dimen name="productWidth">80dp</dimen>
+    <dimen name="productHeight">80dp</dimen>
+    <dimen name="productSetMarginTop">30dp</dimen>
+
     <string name="app_name">RiFaECoM</string>
 </resources>

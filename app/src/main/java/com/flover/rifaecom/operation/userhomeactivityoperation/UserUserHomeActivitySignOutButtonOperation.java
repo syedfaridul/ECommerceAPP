@@ -1,4 +1,4 @@
-package com.flover.rifaecom.operation.homeactivityoperation;
+package com.flover.rifaecom.operation.userhomeactivityoperation;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,11 +7,11 @@ import com.flover.rifaecom.MainActivity;
 
 import io.paperdb.Paper;
 
-public class HomeActivitySignOutButtonOperation implements HomeActivityOperation{
+public class UserUserHomeActivitySignOutButtonOperation implements UserHomeActivityOperation {
 
     private Activity homeActivity;
 
-    public HomeActivitySignOutButtonOperation(Activity homeActivity) {
+    public UserUserHomeActivitySignOutButtonOperation(Activity homeActivity) {
         this.homeActivity = homeActivity;
         Paper.init(homeActivity);
     }

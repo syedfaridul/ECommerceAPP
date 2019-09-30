@@ -1,4 +1,4 @@
-package com.flover.rifaecom.operation.initializer;
+package com.flover.rifaecom.util.initializer;
 
 import android.app.Activity;
 import android.view.View;

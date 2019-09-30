@@ -7,8 +7,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.flover.rifaecom.AdminPageActivity;
-import com.flover.rifaecom.HomePageActivity;
+import com.flover.rifaecom.AdminAddNewProductActivity;
+import com.flover.rifaecom.UserHomeActivity;
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.repository.FirebaseDataRepository;
 import com.flover.rifaecom.repository.PaperDataRepository;
@@ -52,7 +52,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
         this.email = email;
         this.password = password;
-        this.isAdmin = false;
+        this.isAdmin = true;
     }
 
     @Override
@@ -109,18 +109,25 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
             if(email.equals(allData.get(emailReference))){
                 CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
                 if(password.equals(allData.get(passwordReference))&&(!isAdmin)){
-                    if (rememberMeCheckBox.isChecked()){
+
+                    // For testing
+                    //if (rememberMeCheckBox.isChecked()){
 
                         // https://stackoverflow.com/questions/8892360/convert-set-to-list-without-creating-new-list
                         List allKeys = new ArrayList(allData.keySet());
                         Repository androidPaper = new PaperDataRepository(mainActivity, allKeys);
                         androidPaper.updateData(allData);
-                    }
-                    Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
+                    //}
+                    Intent homePageIntent = new Intent(mainActivity, UserHomeActivity.class);
                     mainActivity.startActivity(homePageIntent);
-                    mainActivity.finish();
+                    // mainActivity.finish(); for testing
                 }else if (password.equals(allData.get(passwordReference))&&(isAdmin)){
-                    Intent adminPageIntent = new Intent(mainActivity, AdminPageActivity.class);
+                    // For testing will remove it
+                    List allKeys = new ArrayList(allData.keySet());
+                    Repository androidPaper = new PaperDataRepository(mainActivity, allKeys);
+                    androidPaper.updateData(allData);
+
+                    Intent adminPageIntent = new Intent(mainActivity, AdminAddNewProductActivity.class);
                     mainActivity.startActivity(adminPageIntent);
                 }else {
                     Toast.makeText(mainActivity, "Incorrect Username or Password!", Toast.LENGTH_SHORT).show();

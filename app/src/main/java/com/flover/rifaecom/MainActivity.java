@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.flover.rifaecom.operation.initializer.ClickButtonInitializer;
-import com.flover.rifaecom.operation.initializer.OnClickButtonInitializer;
-import com.flover.rifaecom.operation.initializer.OnClickTextInitializer;
+import com.flover.rifaecom.util.initializer.ClickButtonInitializer;
+import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
+import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
 import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperation;
 import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperationFactory;
 import com.flover.rifaecom.operation.mainactivityoperation.MainActivitySignInButtonOperation;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initializerOnClickText.initialize(R.id.rememberMeText);
 
         allKeys = new ArrayList();
-        anyOperation = new MainActivityOperationFactory();
+        anyOperation = new MainActivityOperationFactory(this);
         allKeys.add(emailReference);
         allKeys.add(passwordReference);
         Repository rememberMe = new PaperDataRepository(this, allKeys);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        MainActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId(), this);
+        MainActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
         anyOperationInstance.perform();
     }
 }

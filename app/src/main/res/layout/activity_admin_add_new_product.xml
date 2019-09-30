@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminAddNewProductActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SELECT PRODUCT CATEGORY"
+        android:textAlignment="center"
+        android:padding="@dimen/productPadding"
+        android:layout_marginTop="@dimen/productSetMarginTop"
+        android:textSize="@dimen/normalTextSize"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/productSetMarginTop">
+
+            <ImageView
+                android:id="@+id/tShirt"
+                android:layout_width="@dimen/productHeight"
+                android:layout_height="@dimen/productWidth"
+                android:src="@drawable/tshirts"
+                android:layout_weight="1"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/sweather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/sweather"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/sportTShirt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/sports"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/femaleDress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/female_dresses"
+                android:padding="@dimen/productPadding"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/productSetMarginTop">
+
+            <ImageView
+                android:id="@+id/glass"
+                android:layout_width="@dimen/productHeight"
+                android:layout_height="@dimen/productWidth"
+                android:src="@drawable/glasses"
+                android:layout_weight="1"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/purseAndBag"
+                android:layout_width="@dimen/productWidth"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/purses_bags"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/hat"
+                android:layout_width="@dimen/productWidth"
+                android:layout_height="@dimen/productHeight"
+                android:layout_weight="1"
+                android:src="@drawable/hats"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/shoe"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/productHeight"
+                android:layout_weight="1"
+                android:src="@drawable/shoess"
+                android:padding="@dimen/productPadding"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/productSetMarginTop">
+
+            <ImageView
+                android:id="@+id/lapTop"
+                android:layout_width="@dimen/productHeight"
+                android:layout_height="@dimen/productWidth"
+                android:src="@drawable/laptops"
+                android:layout_weight="1"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/headPhone"
+                android:layout_width="@dimen/productWidth"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/headphoness"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/watch"
+                android:layout_width="@dimen/productWidth"
+                android:layout_height="@dimen/productHeight"
+                android:layout_weight="1"
+                android:src="@drawable/watches"
+                android:padding="@dimen/productPadding"/>
+
+            <ImageView
+                android:id="@+id/mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/productHeight"
+                android:layout_weight="1"
+                android:src="@drawable/mobiles"
+                android:padding="@dimen/productPadding"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5px"
+        android:textSize="10sp"
+        android:text="| jstrfaheem065@gmail.com | University of Kelaniya |"
+        android:textAlignment="center"/>
+
+</RelativeLayout>
