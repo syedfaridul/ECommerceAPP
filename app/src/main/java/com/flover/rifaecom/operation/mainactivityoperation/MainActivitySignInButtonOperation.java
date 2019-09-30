@@ -118,6 +118,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                     }
                     Intent homePageIntent = new Intent(mainActivity, HomePageActivity.class);
                     mainActivity.startActivity(homePageIntent);
+                    mainActivity.finish();
                 }else if (password.equals(allData.get(passwordReference))&&(isAdmin)){
                     Intent adminPageIntent = new Intent(mainActivity, AdminPageActivity.class);
                     mainActivity.startActivity(adminPageIntent);
@@ -143,6 +144,5 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         };
 
         destroyDialogBoxThread.start();
-        mainActivity.finish();
     }
 }
