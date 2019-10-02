@@ -1,10 +1,11 @@
-package com.flover.rifaecom;
+package com.flover.rifaecom.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.flover.rifaecom.R;
 import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperation;
 import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperationFactory;
 import com.flover.rifaecom.util.initializer.ClickButtonInitializer;

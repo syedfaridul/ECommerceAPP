@@ -5,10 +5,10 @@ import android.widget.CheckBox;
 
 import com.flover.rifaecom.R;
 
-public class MainActivityRememberMeTextClickOperation implements MainActivityOperation{
+public class MainActivityRememberMeTextOperation implements MainActivityOperation{
     private Activity mainActivity;
 
-    public MainActivityRememberMeTextClickOperation(Activity mainActivity) {
+    public MainActivityRememberMeTextOperation(Activity mainActivity) {
         this.mainActivity = mainActivity;
     }
 

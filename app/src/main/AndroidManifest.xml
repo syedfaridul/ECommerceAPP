@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminAddNewCategoryActivity"></activity>
-        <activity android:name=".AdminAddNewProductActivity" />
-        <activity android:name=".UserHomeActivity" />
+        <activity android:name=".admin.AdminAddNewCategoryActivity"></activity>
+        <activity android:name=".admin.AdminAddNewProductActivity" />
+        <activity android:name=".user.UserHomeActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

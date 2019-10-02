@@ -1,4 +1,4 @@
-package com.flover.rifaecom;
+package com.flover.rifaecom.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.AdminAddNewCategoryActivityOperationFactory;
+import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.AdminAddNewProductActivityOperation;
 import com.flover.rifaecom.util.initializer.ClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;
 
 public class AdminAddNewProductActivity extends AppCompatActivity implements View.OnClickListener{
+
+    AdminAddNewCategoryActivityOperationFactory anyOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +36,13 @@ public class AdminAddNewProductActivity extends AppCompatActivity implements Vie
         initializerOnClickImage.initialize(R.id.watch);
         initializerOnClickImage.initialize(R.id.mobile);
 
+        anyOperation = new AdminAddNewCategoryActivityOperationFactory(this);
+
     }
 
     @Override
     public void onClick(View view) {
-        Intent addNewCategoryIntent = new Intent(this, AdminAddNewCategoryActivity.class);
-        startActivity(addNewCategoryIntent);
+        AdminAddNewProductActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
+        anyOperationInstance.perform();
     }
 }

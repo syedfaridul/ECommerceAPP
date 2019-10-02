@@ -1,8 +1,10 @@
-package com.flover.rifaecom;
+package com.flover.rifaecom.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.flover.rifaecom.R;
 
 public class AdminAddNewCategoryActivity extends AppCompatActivity {
 

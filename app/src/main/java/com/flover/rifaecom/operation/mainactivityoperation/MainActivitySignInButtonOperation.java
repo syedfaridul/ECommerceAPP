@@ -7,8 +7,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.flover.rifaecom.AdminAddNewProductActivity;
-import com.flover.rifaecom.UserHomeActivity;
+import com.flover.rifaecom.admin.AdminAddNewProductActivity;
+import com.flover.rifaecom.user.UserHomeActivity;
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.repository.FirebaseDataRepository;
 import com.flover.rifaecom.repository.PaperDataRepository;

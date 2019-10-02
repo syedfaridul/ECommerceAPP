@@ -26,7 +26,7 @@ public class MainActivityOperationFactory {
             isAdmin = false;
             anyOperationInstance = new MainActivityUserButtonOperation(mainActivity);
         }else if (anyButtonId==R.id.rememberMeText){
-            anyOperationInstance = new MainActivityRememberMeTextClickOperation(mainActivity);
+            anyOperationInstance = new MainActivityRememberMeTextOperation(mainActivity);
         }
 
         return anyOperationInstance;
