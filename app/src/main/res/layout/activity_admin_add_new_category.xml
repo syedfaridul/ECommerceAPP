@@ -28,7 +28,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:src="@drawable/select_product_image"
-            android:scaleType="centerCrop"/>
+            android:scaleType="fitXY"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +45,7 @@
                 android:textSize="@dimen/smallTextSize"/>
 
             <EditText
+                android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -69,6 +70,7 @@
                 android:textSize="@dimen/smallTextSize"/>
 
             <EditText
+                android:id="@+id/productDescription"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="5dp"
@@ -94,6 +96,7 @@
                 android:textSize="@dimen/smallTextSize"/>
 
             <EditText
+                android:id="@+id/productPrice"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -103,6 +106,7 @@
 
         </LinearLayout>
         <Button
+            android:id="@+id/addNewCategoryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/addNewCategoryScrollView"

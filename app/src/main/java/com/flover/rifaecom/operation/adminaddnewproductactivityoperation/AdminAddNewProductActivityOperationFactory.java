@@ -4,10 +4,10 @@ import android.app.Activity;
 
 import com.flover.rifaecom.R;
 
-public class AdminAddNewCategoryActivityOperationFactory {
+public class AdminAddNewProductActivityOperationFactory {
     private Activity adminActivity;
 
-    public AdminAddNewCategoryActivityOperationFactory(Activity adminActivity) {
+    public AdminAddNewProductActivityOperationFactory(Activity adminActivity) {
         this.adminActivity = adminActivity;
     }
 
