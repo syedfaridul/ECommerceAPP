@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.flover.rifaecom.util.initializer.ClickButtonInitializer;
+import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
 import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperation;
@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInButton.setOnClickListener(this);
         */
 
-        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
+        ClickInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
         initializeOnClickButton.initialize(R.id.signUpButton);
         initializeOnClickButton.initialize(R.id.signInButton);
 
-        ClickButtonInitializer initializerOnClickText = new OnClickTextInitializer(this);
+        ClickInitializer initializerOnClickText = new OnClickTextInitializer(this);
         initializerOnClickText.initialize(R.id.yesIam);
         initializerOnClickText.initialize(R.id.noIamNot);
         initializerOnClickText.initialize(R.id.rememberMeText);

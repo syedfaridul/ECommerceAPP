@@ -8,7 +8,7 @@ import android.view.View;
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.AdminAddNewProductActivityOperationFactory;
 import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.AdminAddNewProductActivityOperation;
-import com.flover.rifaecom.util.initializer.ClickButtonInitializer;
+import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;
 
 public class AdminAddNewProductActivity extends AppCompatActivity implements View.OnClickListener{
@@ -20,7 +20,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_new_product);
 
-        ClickButtonInitializer initializerOnClickImage = new OnClickImageInitializer(this);
+        ClickInitializer initializerOnClickImage = new OnClickImageInitializer(this);
 
         initializerOnClickImage.initialize(R.id.tShirt);
         initializerOnClickImage.initialize(R.id.sweather);

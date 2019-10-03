@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 
-public class OnClickImageInitializer implements ClickButtonInitializer{
+public class OnClickImageInitializer implements ClickInitializer {
     private Activity anyActivity;
 
     public OnClickImageInitializer(Activity anyActivity) {

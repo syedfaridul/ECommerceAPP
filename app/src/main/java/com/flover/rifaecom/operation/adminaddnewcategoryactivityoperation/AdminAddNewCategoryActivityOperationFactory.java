@@ -19,7 +19,6 @@ public class AdminAddNewCategoryActivityOperationFactory {
         }else if (anyButtonId==R.id.addNewCategoryButton){
             anyOperationInstance = new AdminAddNewCategoryActivityAddNewCategoryButtonOperation(adminAddNewCategoryActivity);
         }
-
         return anyOperationInstance;
     }
 }

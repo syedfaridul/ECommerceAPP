@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
-public class OnClickTextInitializer implements ClickButtonInitializer{
+public class OnClickTextInitializer implements ClickInitializer {
     private Activity anyActivity;
 
     public OnClickTextInitializer(Activity anyActivity) {

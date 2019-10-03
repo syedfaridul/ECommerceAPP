@@ -2,7 +2,7 @@ package com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation;
 
 import android.app.Activity;
 
-public class AdminAddNewCategoryActivityData {
+public class AdminAddNewCategoryActivityData{
     protected Activity adminAddNewCategoryActivity;
     protected String productCategory;
     protected String extraRoof = "category";

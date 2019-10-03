@@ -10,16 +10,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AdminAddNewCategoryActivityAddNewCategoryButtonOperation;
 import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AdminAddNewCategoryActivityOperation;
 import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AdminAddNewCategoryActivityOperationFactory;
-import com.flover.rifaecom.util.initializer.ClickButtonInitializer;
+import com.flover.rifaecom.util.initializer.ClickInitializer;
+import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;
 
 public class AdminAddNewCategoryActivity extends AppCompatActivity implements View.OnClickListener{
 
     private AdminAddNewCategoryActivityOperationFactory anyOperation;
     private ImageView productImage;
-    private Uri imageUri;
+    public Uri imageUri;
     protected static final int galleryPick = 1;
 
     @Override
@@ -27,8 +29,11 @@ public class AdminAddNewCategoryActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_new_category);
 
-        ClickButtonInitializer initializerOnClickImage = new OnClickImageInitializer(this);
+        ClickInitializer initializerOnClickImage = new OnClickImageInitializer(this);
         initializerOnClickImage.initialize(R.id.selectProductImage);
+
+        ClickInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
+        initializeOnClickButton.initialize(R.id.addNewCategoryButton);
 
 
         productImage = findViewById(R.id.selectProductImage);
@@ -51,6 +56,9 @@ public class AdminAddNewCategoryActivity extends AppCompatActivity implements Vi
             // https://stackoverflow.com/questions/6267733/android-resizing-imageview-in-xml
             productImage.setImageURI(imageUri);
             Toast.makeText(getBaseContext(), "Product image added!", Toast.LENGTH_SHORT).show();
+
+            // Want to find solution
+            AdminAddNewCategoryActivityAddNewCategoryButtonOperation.performAfterGotTheUri(imageUri);
         }
     }
 }

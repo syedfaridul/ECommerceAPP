@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
 import com.flover.rifaecom.operation.singupactivityoperation.SignUpActivityOperation;
 import com.flover.rifaecom.operation.singupactivityoperation.SignUpActivityOperationFactory;
-import com.flover.rifaecom.util.initializer.ClickButtonInitializer;
+import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
@@ -20,10 +20,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
 
         anyOperation = new SignUpActivityOperationFactory(this);
-        ClickButtonInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
+        ClickInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
         initializeOnClickButton.initialize(R.id.createAccountButton);
 
-        ClickButtonInitializer initializerOnClickText = new OnClickTextInitializer(this);
+        ClickInitializer initializerOnClickText = new OnClickTextInitializer(this);
         initializerOnClickText.initialize(R.id.yesIam);
         initializerOnClickText.initialize(R.id.noIamNot);
 
