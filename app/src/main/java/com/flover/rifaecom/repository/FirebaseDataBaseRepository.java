@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-public class FirebaseDataRepository extends Observable implements Repository{
+public class FirebaseDataBaseRepository extends Observable implements Repository{
     // private boolean isUserPrivateKeyExist = false;
     // private String userPrivateKeyExistFlag = "isUserPrivateKeyExist";
     private boolean isUpdateDataTaskComplete = false;
@@ -22,7 +22,7 @@ public class FirebaseDataRepository extends Observable implements Repository{
     private String gettingDataErrorFlag = "isGettingDataErrorOccurred";
     private boolean isGettingDataErrorOccurred = false;
     private String  dataFetchedFlag = "isDataFetched";
-    private boolean isDataFatched = false;
+    private boolean isDataFetched = false;
 
     private Object dataFromFirebase;
 
@@ -32,7 +32,7 @@ public class FirebaseDataRepository extends Observable implements Repository{
     private String userDataRootReference;
     private String userPrivateKey;
 
-    public FirebaseDataRepository(String userDataRootReference, String userPrivateKey) {
+    public FirebaseDataBaseRepository(String userDataRootReference, String userPrivateKey) {
         this.userDataRootReference = userDataRootReference;
         this.userPrivateKey = userPrivateKey;
         allFlags = new HashMap<>();
@@ -40,7 +40,7 @@ public class FirebaseDataRepository extends Observable implements Repository{
         allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
         allFlags.put(gettingDataErrorFlag, isGettingDataErrorOccurred);
-        allFlags.put(dataFetchedFlag, isDataFatched);
+        allFlags.put(dataFetchedFlag, isDataFetched);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class FirebaseDataRepository extends Observable implements Repository{
         // allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
         allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
         allFlags.put(gettingDataErrorFlag, isGettingDataErrorOccurred);
-        allFlags.put(dataFetchedFlag, isDataFatched);
+        allFlags.put(dataFetchedFlag, isDataFetched);
         return allFlags;
     }
 
@@ -93,7 +93,7 @@ public class FirebaseDataRepository extends Observable implements Repository{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if((dataSnapshot.child(userDataRootReference).child(userPrivateKey).exists())){
                     dataFromFirebase = dataSnapshot.child(userDataRootReference).child(userPrivateKey).getValue(Object.class);
-                    isDataFatched = true;
+                    isDataFetched = true;
                 }
                 setChanged();
                 notifyObservers();

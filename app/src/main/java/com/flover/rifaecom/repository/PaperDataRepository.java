@@ -56,6 +56,7 @@ public class PaperDataRepository implements Repository{
 
     @Override
     public void deleteData() {
+        // Will modify soon
         Paper.book().destroy();
     }
 }

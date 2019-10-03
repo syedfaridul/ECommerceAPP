@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.repository.Repository;
-import com.flover.rifaecom.repository.FirebaseDataRepository;
+import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,9 +71,9 @@ public class SignUpActivityCreateButtonOperation implements SignUpActivityOperat
                 Map<String, String> dataSet = new HashMap<>();
                 dataSet.put(emailReference, email);
                 dataSet.put(passwordReference, password);
-                Repository firebaseDataRepository = new FirebaseDataRepository(dataRootReference, userName);
+                Repository firebaseDataRepository = new FirebaseDataBaseRepository(dataRootReference, userName);
 
-                ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
+                ((FirebaseDataBaseRepository)firebaseDataRepository).addObserver(this);
                 firebaseDataRepository.updateData(/*anyActivity,*/ dataSet);
 
 

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.flover.rifaecom.admin.AdminAddNewProductActivity;
 import com.flover.rifaecom.user.UserHomeActivity;
 import com.flover.rifaecom.R;
-import com.flover.rifaecom.repository.FirebaseDataRepository;
+import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 import com.flover.rifaecom.repository.PaperDataRepository;
 import com.flover.rifaecom.repository.Repository;
 
@@ -90,8 +90,8 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                 Map<String, String> dataSet = new HashMap<>();
                 dataSet.put(emailReference, email);
                 dataSet.put(passwordReference, password);
-                firebaseDataRepository = new FirebaseDataRepository(dataRootReference, userName);
-                ((FirebaseDataRepository)firebaseDataRepository).addObserver(this);
+                firebaseDataRepository = new FirebaseDataBaseRepository(dataRootReference, userName);
+                ((FirebaseDataBaseRepository)firebaseDataRepository).addObserver(this);
 
                 firebaseDataRepository.getData();
 
@@ -107,7 +107,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
         try {
             if(email.equals(allData.get(emailReference))){
-                CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
+                // CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
                 if(password.equals(allData.get(passwordReference))&&(!isAdmin)){
 
                     // For testing

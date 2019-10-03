@@ -8,11 +8,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.repository.FirebaseStorageRepository;
+import com.flover.rifaecom.repository.Repository;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends AdminAddNewCategoryActivityData implements AdminAddNewCategoryActivityOperation{
+public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends AdminAddNewCategoryActivityData implements AdminAddNewCategoryActivityOperation, Observer {
     private EditText productDescription;
     private EditText productPrice;
     private EditText productName;
@@ -25,6 +34,12 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
     private ProgressDialog loadingBar;
     private String productRandomKey;
 
+    private Map dataSet;
+
+    private Repository firebaseStorageRepository;
+    private StorageReference productImagesRef;
+    private String downloadImageUrl;
+
 
     public AdminAddNewCategoryActivityAddNewCategoryButtonOperation(Activity adminAddNewCategoryActivity) {
         this.adminAddNewCategoryActivity = adminAddNewCategoryActivity;
@@ -33,6 +48,9 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
         productDescription = adminAddNewCategoryActivity.findViewById(R.id.productDescription);
         productPrice = adminAddNewCategoryActivity.findViewById(R.id.productPrice);
         loadingBar = new ProgressDialog(adminAddNewCategoryActivity);
+
+        productImagesRef = FirebaseStorage.getInstance().getReference().child("ProductImages");
+        dataSet = new HashMap();
     }
 
     @Override
@@ -60,9 +78,24 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
             String saveCurrentDate = currentDate.format(calendar.getTime());
 
             SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-            String saveCurretTime = currentTime.format(calendar.getTime());
+            String saveCurrentTime = currentTime.format(calendar.getTime());
 
-            productRandomKey = saveCurrentDate + saveCurretTime;
+            productRandomKey = saveCurrentDate + saveCurrentTime;
+
+            final StorageReference filePath = productImagesRef.child(productRandomKey);
+
+
+            final UploadTask uploadTask = filePath.putFile(productImageUriC);
+
+            dataSet.put("productRootReference", "ProductImages");
+            dataSet.put("productRandomKey", productRandomKey);
+            dataSet.put("productImageUri", productImageUriC);
+
+            firebaseStorageRepository = new FirebaseStorageRepository();
+            ((FirebaseStorageRepository)firebaseStorageRepository).addObserver(this);
+
+
+            firebaseStorageRepository.updateData(dataSet);
         }
     }
 
@@ -70,5 +103,11 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
     // Want to find alternative way
     public static void performAfterGotTheUri(Uri productImageUri){
         productImageUriC = productImageUri;
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        Map allFlags = firebaseStorageRepository.returnAllFlags();
+        loadingBar.dismiss();
     }
 }
