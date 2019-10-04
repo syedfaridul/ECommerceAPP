@@ -8,11 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 import com.flover.rifaecom.repository.FirebaseStorageRepository;
 import com.flover.rifaecom.repository.Repository;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends AdminAddNewCategoryActivityData implements AdminAddNewCategoryActivityOperation, Observer {
     private EditText productDescription;
@@ -37,8 +37,18 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
     private Map dataSet;
 
     private Repository firebaseStorageRepository;
-    private StorageReference productImagesRef;
+
     private String downloadImageUrl;
+
+    private String productNameFlag = "productName";
+    private String productDescriptionFlag = "productDescription";
+    private String productPriceFlag = "productPrice";
+
+    private String productCategoryFlag = "productCategory";
+    private String productRootRef = "PRODUCTS";
+
+    private Repository productDataRepository;
+
 
 
     public AdminAddNewCategoryActivityAddNewCategoryButtonOperation(Activity adminAddNewCategoryActivity) {
@@ -49,7 +59,8 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
         productPrice = adminAddNewCategoryActivity.findViewById(R.id.productPrice);
         loadingBar = new ProgressDialog(adminAddNewCategoryActivity);
 
-        productImagesRef = FirebaseStorage.getInstance().getReference().child("ProductImages");
+        productCategory = adminAddNewCategoryActivity.getIntent().getExtras().get(extraRoof).toString();
+
         dataSet = new HashMap();
     }
 
@@ -81,11 +92,12 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
             String saveCurrentTime = currentTime.format(calendar.getTime());
 
             productRandomKey = saveCurrentDate + saveCurrentTime;
+            String special_charactersRegX = "[.|#|$|\\[|\\]]";
+            Pattern special_characterPattern = Pattern.compile(special_charactersRegX);
+            Matcher special_characterMatcher = special_characterPattern.matcher(productRandomKey);
 
-            final StorageReference filePath = productImagesRef.child(productRandomKey);
+            productRandomKey = special_characterMatcher.replaceAll("");
 
-
-            final UploadTask uploadTask = filePath.putFile(productImageUriC);
 
             dataSet.put("productRootReference", "ProductImages");
             dataSet.put("productRandomKey", productRandomKey);
@@ -107,7 +119,37 @@ public class AdminAddNewCategoryActivityAddNewCategoryButtonOperation extends Ad
 
     @Override
     public void update(Observable observable, Object o) {
-        Map allFlags = firebaseStorageRepository.returnAllFlags();
+        if (observable instanceof FirebaseStorageRepository){
+            Map allFlags = firebaseStorageRepository.returnAllFlags();
+
+            downloadImageUrl = allFlags.get("downloadFileUrl").toString();
+            if ((Boolean) allFlags.get("isUploadSuccess")){
+                Toast.makeText(adminAddNewCategoryActivity, "Product image uploaded successfully!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(adminAddNewCategoryActivity, "Error occurred while uploading!", Toast.LENGTH_SHORT).show();
+            }
+
+            Map allDatabaseData = new HashMap();
+
+            allDatabaseData.put(productCategoryFlag, productCategory);
+            allDatabaseData.put(productNameFlag, productNameString);
+            allDatabaseData.put(productDescriptionFlag, productDescriptionString);
+            allDatabaseData.put(productPriceFlag, productPriceString);
+            allDatabaseData.put("productImageDownloadUrl", downloadImageUrl);
+
+            productDataRepository = new FirebaseDataBaseRepository(productRootRef, productRandomKey);
+            ((FirebaseDataBaseRepository)productDataRepository).addObserver(this);
+            productDataRepository.updateData(allDatabaseData);
+        }else {
+            Map allFlags = productDataRepository.returnAllFlags();
+            if ((Boolean) allFlags.get("isUpdateDataTaskComplete")){
+                Toast.makeText(adminAddNewCategoryActivity, "Your product is uploaded successfully!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(adminAddNewCategoryActivity, "Error occurred while uploading!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         loadingBar.dismiss();
+        adminAddNewCategoryActivity.finish();
     }
 }
