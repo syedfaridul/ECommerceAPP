@@ -50,6 +50,11 @@ public class PaperDataRepository implements Repository{
     }
 
     @Override
+    public void getDataByID() {
+
+    }
+
+    @Override
     public Object returnData() {
         return dataFromPaper;
     }

@@ -52,7 +52,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
 
         this.email = email;
         this.password = password;
-        this.isAdmin = true;
+        this.isAdmin = false;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                 firebaseDataRepository = new FirebaseDataBaseRepository(dataRootReference, userName);
                 ((FirebaseDataBaseRepository)firebaseDataRepository).addObserver(this);
 
-                firebaseDataRepository.getData();
+                firebaseDataRepository.getDataByID();
 
             }else {
                 Toast.makeText(mainActivity, "Can't accept empty email!", Toast.LENGTH_SHORT).show();
@@ -107,26 +107,21 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
         Map<String, Boolean> allFlags = firebaseDataRepository.returnAllFlags();
         try {
             if(email.equals(allData.get(emailReference))){
-                // CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
+                CheckBox rememberMeCheckBox = mainActivity.findViewById(R.id.rememberMeCheckBox);
                 if(password.equals(allData.get(passwordReference))&&(!isAdmin)){
 
                     // For testing
-                    //if (rememberMeCheckBox.isChecked()){
+                    if (rememberMeCheckBox.isChecked()){
 
                         // https://stackoverflow.com/questions/8892360/convert-set-to-list-without-creating-new-list
                         List allKeys = new ArrayList(allData.keySet());
                         Repository androidPaper = new PaperDataRepository(mainActivity, allKeys);
                         androidPaper.updateData(allData);
-                    //}
+                    }
                     Intent homePageIntent = new Intent(mainActivity, UserHomeActivity.class);
                     mainActivity.startActivity(homePageIntent);
                     // mainActivity.finish(); for testing
                 }else if (password.equals(allData.get(passwordReference))&&(isAdmin)){
-                    // For testing will remove it
-                    List allKeys = new ArrayList(allData.keySet());
-                    Repository androidPaper = new PaperDataRepository(mainActivity, allKeys);
-                    androidPaper.updateData(allData);
-
                     Intent adminPageIntent = new Intent(mainActivity, AdminAddNewProductActivity.class);
                     mainActivity.startActivity(adminPageIntent);
                 }else {

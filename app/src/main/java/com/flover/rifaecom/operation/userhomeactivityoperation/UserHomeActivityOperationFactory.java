@@ -13,9 +13,9 @@ public class UserHomeActivityOperationFactory {
 
     public UserHomeActivityOperation getInstance(int anyButtonId){
         UserHomeActivityOperation anyOperationInstance = null;
-        if (anyButtonId== R.id.signOutButton){
-            anyOperationInstance = new UserUserHomeActivitySignOutButtonOperation(homeActivity);
-        }
+        //if (anyButtonId== R.id.signOutButton){
+          //  anyOperationInstance = new UserUserHomeActivitySignOutButtonOperation(homeActivity);
+        //}
 
         return anyOperationInstance;
     }

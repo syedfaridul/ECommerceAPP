@@ -8,6 +8,7 @@ public interface Repository{
     void updateData(/*Activity anyActivity,*/ Map dataSet);
     Map returnAllFlags();
     void getData();
+    void getDataByID();
     Object returnData();
     void deleteData();
 }

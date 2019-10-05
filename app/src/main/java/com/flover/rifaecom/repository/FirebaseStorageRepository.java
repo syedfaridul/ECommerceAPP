@@ -94,6 +94,11 @@ public class FirebaseStorageRepository extends Observable implements Repository{
     }
 
     @Override
+    public void getDataByID() {
+
+    }
+
+    @Override
     public Object returnData() {
         return null;
     }

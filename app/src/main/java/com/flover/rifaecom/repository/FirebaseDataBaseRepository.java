@@ -43,6 +43,16 @@ public class FirebaseDataBaseRepository extends Observable implements Repository
         allFlags.put(dataFetchedFlag, isDataFetched);
     }
 
+    public FirebaseDataBaseRepository(String userDataRootReference) {
+        this.userDataRootReference = userDataRootReference;
+        allFlags = new HashMap<>();
+        // allFlags.put(userPrivateKeyExistFlag, isUserPrivateKeyExist);
+        allFlags.put(updateDataTaskCompleteFlag, isUpdateDataTaskComplete);
+        allFlags.put(updateOnCancelledFlag, isUpdateOnCancelled);
+        allFlags.put(gettingDataErrorFlag, isGettingDataErrorOccurred);
+        allFlags.put(dataFetchedFlag, isDataFetched);
+    }
+
     @Override
     public void updateData(/*final Activity anyActivity,*/ final Map dataSet) {
         final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
@@ -87,6 +97,27 @@ public class FirebaseDataBaseRepository extends Observable implements Repository
 
     @Override
     public void getData() {
+        final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
+        rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if((dataSnapshot.child(userDataRootReference).exists())){
+                    dataFromFirebase = dataSnapshot.child(userDataRootReference).getValue(Object.class);
+                    isDataFetched = true;
+                }
+                setChanged();
+                notifyObservers();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                isGettingDataErrorOccurred = true;
+            }
+        });
+    }
+
+    @Override
+    public void getDataByID() {
         final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
         rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

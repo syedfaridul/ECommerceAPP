@@ -30,6 +30,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.1.0'
     implementation 'io.paperdb:paperdb:2.6'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'androidx.cardview:cardview:1.0.0-alpha1'
 }
 
 apply plugin: 'com.google.gms.google-services'
