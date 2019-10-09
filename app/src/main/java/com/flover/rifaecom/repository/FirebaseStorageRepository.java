@@ -105,6 +105,6 @@ public class FirebaseStorageRepository extends Observable implements Repository{
 
     @Override
     public void deleteData() {
-
+        // https://stackoverflow.com/questions/42930619/how-to-delete-image-from-firebase-storage
     }
 }

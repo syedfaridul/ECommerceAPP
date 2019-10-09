@@ -144,7 +144,7 @@ public class FirebaseDataBaseRepository extends Observable implements Repository
 
     @Override
     public void deleteData() {
-
+        // https://stackoverflow.com/questions/37390864/how-to-delete-from-firebase-realtime-database
     }
 
 
