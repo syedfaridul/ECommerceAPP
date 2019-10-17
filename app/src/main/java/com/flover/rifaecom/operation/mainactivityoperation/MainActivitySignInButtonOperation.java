@@ -111,7 +111,7 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                 if(password.equals(allData.get(passwordReference))&&(!isAdmin)){
 
                     // For testing
-                    if (rememberMeCheckBox.isChecked()){
+                    if ((rememberMeCheckBox!=null)&&(rememberMeCheckBox.isChecked())){
 
                         // https://stackoverflow.com/questions/8892360/convert-set-to-list-without-creating-new-list
                         List allKeys = new ArrayList(allData.keySet());
