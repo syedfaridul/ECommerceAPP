@@ -120,10 +120,13 @@ public class MainActivitySignInButtonOperation implements MainActivityOperation,
                     }
                     Intent homePageIntent = new Intent(mainActivity, UserHomeActivity.class);
                     mainActivity.startActivity(homePageIntent);
-                    // mainActivity.finish(); for testing
+                    loadingBar.dismiss();
+                    mainActivity.finish();
                 }else if (password.equals(allData.get(passwordReference))&&(isAdmin)){
                     Intent adminPageIntent = new Intent(mainActivity, AdminAddNewProductActivity.class);
                     mainActivity.startActivity(adminPageIntent);
+                    loadingBar.dismiss();
+                    mainActivity.finish();
                 }else {
                     Toast.makeText(mainActivity, "Incorrect Username or Password!", Toast.LENGTH_SHORT).show();
                 }

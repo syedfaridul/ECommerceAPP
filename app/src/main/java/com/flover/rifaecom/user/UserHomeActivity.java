@@ -4,22 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.view.View;
 
+import com.flover.rifaecom.MainActivity;
 import com.flover.rifaecom.R;
 // import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperation;
 import com.flover.rifaecom.adapter.ProductViewAdapter;
 import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperationFactory;
 import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 import com.flover.rifaecom.repository.Repository;
+import com.flover.rifaecom.util.initializer.ClickInitializer;
+import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+
+import io.paperdb.Paper;
 // import com.flover.rifaecom.util.initializer.ClickInitializer;
 // import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 
@@ -40,6 +46,9 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
         productRepository = new FirebaseDataBaseRepository(proudctRootRef);
         ((FirebaseDataBaseRepository)productRepository).addObserver(this);
 
+        ClickInitializer onClickButtonInitializer = new OnClickButtonInitializer(this);
+        onClickButtonInitializer.initialize(R.id.userHomeLogOut);
+
         productRepository.getData();
     }
 
@@ -47,6 +56,12 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         // UserHomeActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
         // anyOperationInstance.perform();
+        Paper.init(this);
+        Paper.book().destroy();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

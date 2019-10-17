@@ -11,6 +11,7 @@ import com.flover.rifaecom.repository.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class DecisionMakingActivity extends AppCompatActivity {
 
@@ -41,7 +42,5 @@ public class DecisionMakingActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-
-        finish();
     }
 }
