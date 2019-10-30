@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.CheckBox;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.Operation;
 
 public class RememberMeTextOperation implements Operation {
     private Activity mainActivity;

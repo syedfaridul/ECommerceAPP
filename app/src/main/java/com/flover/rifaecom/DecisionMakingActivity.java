@@ -40,6 +40,19 @@ public class DecisionMakingActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            Thread thread = new Thread(){
+                @Override
+                public void run(){
+                    try {
+                        Thread.sleep(500);
+                        finish();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
         }
     }
 }

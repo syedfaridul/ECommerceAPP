@@ -4,6 +4,7 @@ package com.flover.rifaecom.operation.singupactivityoperation;
 import android.app.Activity;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.Operation;
 
 public class OperationFactory {
     private boolean isAdmin = false;

@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.flover.rifaecom.MainActivity;
 
+import com.flover.rifaecom.operation.Operation;
 import io.paperdb.Paper;
 
 public class SignOutButtonOperation implements Operation {

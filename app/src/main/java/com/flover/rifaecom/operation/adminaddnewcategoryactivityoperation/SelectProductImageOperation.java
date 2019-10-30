@@ -2,6 +2,7 @@ package com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation;
 
 import android.app.Activity;
 import android.content.Intent;
+import com.flover.rifaecom.operation.Operation;
 
 public class SelectProductImageOperation extends Data implements Operation {
 

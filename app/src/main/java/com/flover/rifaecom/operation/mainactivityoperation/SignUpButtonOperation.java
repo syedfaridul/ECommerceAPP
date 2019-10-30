@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.flover.rifaecom.SignUpActivity;
+import com.flover.rifaecom.operation.Operation;
 
 public class SignUpButtonOperation implements Operation {
     private Activity mainActivity;

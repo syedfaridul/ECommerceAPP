@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.Button;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.Operation;
 
 public class UserButtonOperation implements Operation {
     private Activity signUpActivity;

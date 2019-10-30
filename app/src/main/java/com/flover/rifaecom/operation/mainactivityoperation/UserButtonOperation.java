@@ -6,6 +6,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.Operation;
 
 public class UserButtonOperation implements Operation {
     private Activity mainActivity;

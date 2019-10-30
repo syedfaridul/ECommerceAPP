@@ -3,6 +3,7 @@ package com.flover.rifaecom.operation.adminaddnewproductactivityoperation;
 import android.app.Activity;
 
 import com.flover.rifaecom.R;
+import com.flover.rifaecom.operation.Operation;
 
 public class OperationFactory {
     private Activity adminActivity;

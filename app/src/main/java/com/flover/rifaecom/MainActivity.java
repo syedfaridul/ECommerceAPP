@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.flover.rifaecom.operation.Operation;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
-import com.flover.rifaecom.operation.mainactivityoperation.Operation;
 import com.flover.rifaecom.operation.mainactivityoperation.OperationFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
