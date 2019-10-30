@@ -12,6 +12,7 @@ import com.flover.rifaecom.MainActivity;
 import com.flover.rifaecom.R;
 // import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperation;
 import com.flover.rifaecom.adapter.ProductViewAdapter;
+import com.flover.rifaecom.operation.Operation;
 import com.flover.rifaecom.operation.userhomeoperation.OperationFactory;
 import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 import com.flover.rifaecom.repository.Repository;
@@ -25,8 +26,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import io.paperdb.Paper;
-// import com.flover.rifaecom.util.initializer.ClickInitializer;
-// import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
+/*
+ import com.flover.rifaecom.util.initializer.ClickInitializer;
+ import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
+*/
 
 public class UserHomeActivity extends AppCompatActivity implements View.OnClickListener, Observer {
     private String proudctRootRef = "PRODUCTS";
@@ -38,9 +41,7 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
-        // ClickInitializer initializerOnClickButton = new OnClickButtonInitializer(this);
-        // initializerOnClickButton.initialize(R.id.signOutButton);
-        // anyOperation = new UserHomeActivityOperationFactory(this);
+        anyOperation = new OperationFactory(this);
 
         productRepository = new FirebaseDataBaseRepository(proudctRootRef);
         ((FirebaseDataBaseRepository)productRepository).addObserver(this);
@@ -53,14 +54,10 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        // UserHomeActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
-        // anyOperationInstance.perform();
+        Operation anyOperationInstance = anyOperation.getInstance(view.getId());
+        anyOperationInstance.perform();
         Paper.init(this);
         Paper.book().destroy();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override
