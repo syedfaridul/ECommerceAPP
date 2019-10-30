@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.flover.rifaecom.operation.mainactivityoperation.MainActivitySignInButtonOperation;
+import com.flover.rifaecom.operation.mainactivityoperation.SignInButtonOperation;
 import com.flover.rifaecom.repository.PaperDataRepository;
 import com.flover.rifaecom.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class DecisionMakingActivity extends AppCompatActivity {
 
@@ -36,7 +35,7 @@ public class DecisionMakingActivity extends AppCompatActivity {
         String password = userData.get(passwordReference);
 
         if ((email!=null)&&(password!=null)){
-            MainActivitySignInButtonOperation signIn = new MainActivitySignInButtonOperation(this, email, password);
+            SignInButtonOperation signIn = new SignInButtonOperation(this, email, password);
             signIn.perform();
         } else {
             Intent intent = new Intent(this, MainActivity.class);

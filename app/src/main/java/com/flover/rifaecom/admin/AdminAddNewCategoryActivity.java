@@ -10,16 +10,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.flover.rifaecom.R;
-import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AdminAddNewCategoryActivityAddNewCategoryButtonOperation;
-import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AdminAddNewCategoryActivityOperation;
-import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AdminAddNewCategoryActivityOperationFactory;
+import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AddNewCategoryButtonOperation;
+import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.Operation;
+import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.OperationFactory;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;
 
 public class AdminAddNewCategoryActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private AdminAddNewCategoryActivityOperationFactory anyOperation;
+    private OperationFactory anyOperation;
     private ImageView productImage;
     public Uri imageUri;
     protected static final int galleryPick = 1;
@@ -37,12 +37,12 @@ public class AdminAddNewCategoryActivity extends AppCompatActivity implements Vi
 
 
         productImage = findViewById(R.id.selectProductImage);
-        anyOperation = new AdminAddNewCategoryActivityOperationFactory(this);
+        anyOperation = new OperationFactory(this);
     }
 
     @Override
     public void onClick(View view) {
-        AdminAddNewCategoryActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
+        Operation anyOperationInstance = anyOperation.getInstance(view.getId());
         anyOperationInstance.perform();
     }
 
@@ -58,7 +58,7 @@ public class AdminAddNewCategoryActivity extends AppCompatActivity implements Vi
             Toast.makeText(getBaseContext(), "Product image added!", Toast.LENGTH_SHORT).show();
 
             // Want to find solution
-            AdminAddNewCategoryActivityAddNewCategoryButtonOperation.performAfterGotTheUri(imageUri);
+            AddNewCategoryButtonOperation.performAfterGotTheUri(imageUri);
         }
     }
 }

@@ -6,20 +6,20 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
-import com.flover.rifaecom.operation.singupactivityoperation.SignUpActivityOperation;
-import com.flover.rifaecom.operation.singupactivityoperation.SignUpActivityOperationFactory;
+import com.flover.rifaecom.operation.singupactivityoperation.Operation;
+import com.flover.rifaecom.operation.singupactivityoperation.OperationFactory;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
-    SignUpActivityOperationFactory anyOperation;
+    OperationFactory anyOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        anyOperation = new SignUpActivityOperationFactory(this);
+        anyOperation = new OperationFactory(this);
         ClickInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
         initializeOnClickButton.initialize(R.id.createAccountButton);
 
@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        SignUpActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
+        Operation anyOperationInstance = anyOperation.getInstance(view.getId());
         anyOperationInstance.perform();
     }
 }

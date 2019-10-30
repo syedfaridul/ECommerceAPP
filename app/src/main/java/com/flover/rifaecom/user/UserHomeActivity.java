@@ -6,14 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.view.View;
 
 import com.flover.rifaecom.MainActivity;
 import com.flover.rifaecom.R;
 // import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperation;
 import com.flover.rifaecom.adapter.ProductViewAdapter;
-import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperationFactory;
+import com.flover.rifaecom.operation.userhomeactivityoperation.OperationFactory;
 import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 import com.flover.rifaecom.repository.Repository;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
@@ -33,7 +32,7 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
     private String proudctRootRef = "PRODUCTS";
     private Repository productRepository;
 
-    private UserHomeActivityOperationFactory anyOperation;
+    private OperationFactory anyOperation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

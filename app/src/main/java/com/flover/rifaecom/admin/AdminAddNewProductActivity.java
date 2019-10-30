@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.flover.rifaecom.R;
-import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.AdminAddNewProductActivityOperationFactory;
-import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.AdminAddNewProductActivityOperation;
+import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.OperationFactory;
+import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.Operation;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;
 
 public class AdminAddNewProductActivity extends AppCompatActivity implements View.OnClickListener{
 
-    AdminAddNewProductActivityOperationFactory anyOperation;
+    OperationFactory anyOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +35,13 @@ public class AdminAddNewProductActivity extends AppCompatActivity implements Vie
         initializerOnClickImage.initialize(R.id.watch);
         initializerOnClickImage.initialize(R.id.mobile);
 
-        anyOperation = new AdminAddNewProductActivityOperationFactory(this);
+        anyOperation = new OperationFactory(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        AdminAddNewProductActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
+        Operation anyOperationInstance = anyOperation.getInstance(view.getId());
         anyOperationInstance.perform();
     }
 }

@@ -8,12 +8,12 @@ import android.view.View;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
-import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperation;
-import com.flover.rifaecom.operation.mainactivityoperation.MainActivityOperationFactory;
+import com.flover.rifaecom.operation.mainactivityoperation.Operation;
+import com.flover.rifaecom.operation.mainactivityoperation.OperationFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private MainActivityOperationFactory anyOperation;
+    private OperationFactory anyOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInButton.setOnClickListener(this);
         */
 
-        anyOperation = new MainActivityOperationFactory(this);
+        anyOperation = new OperationFactory(this);
 
         ClickInitializer initializeOnClickButton = new OnClickButtonInitializer(this);
         initializeOnClickButton.initialize(R.id.signUpButton);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        MainActivityOperation anyOperationInstance = anyOperation.getInstance(view.getId());
+        Operation anyOperationInstance = anyOperation.getInstance(view.getId());
         anyOperationInstance.perform();
     }
 }
