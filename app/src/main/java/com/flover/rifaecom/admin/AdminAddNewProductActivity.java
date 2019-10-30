@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.operation.Operation;
-import com.flover.rifaecom.operation.adminaddnewproductactivityoperation.OperationFactory;
+import com.flover.rifaecom.operation.addnewproductoperation.OperationFactory;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;
 

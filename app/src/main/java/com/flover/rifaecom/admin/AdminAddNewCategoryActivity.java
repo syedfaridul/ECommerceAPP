@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.flover.rifaecom.R;
 import com.flover.rifaecom.operation.Operation;
-import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.AddNewCategoryButtonOperation;
-import com.flover.rifaecom.operation.adminaddnewcategoryactivityoperation.OperationFactory;
+import com.flover.rifaecom.operation.addnewcategoryoperation.AddNewCategoryButtonOperation;
+import com.flover.rifaecom.operation.addnewcategoryoperation.OperationFactory;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickImageInitializer;

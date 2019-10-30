@@ -12,7 +12,7 @@ import com.flover.rifaecom.MainActivity;
 import com.flover.rifaecom.R;
 // import com.flover.rifaecom.operation.userhomeactivityoperation.UserHomeActivityOperation;
 import com.flover.rifaecom.adapter.ProductViewAdapter;
-import com.flover.rifaecom.operation.userhomeactivityoperation.OperationFactory;
+import com.flover.rifaecom.operation.userhomeoperation.OperationFactory;
 import com.flover.rifaecom.repository.FirebaseDataBaseRepository;
 import com.flover.rifaecom.repository.Repository;
 import com.flover.rifaecom.util.initializer.ClickInitializer;

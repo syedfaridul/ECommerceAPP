@@ -9,7 +9,7 @@ import com.flover.rifaecom.operation.Operation;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
-import com.flover.rifaecom.operation.mainactivityoperation.OperationFactory;
+import com.flover.rifaecom.operation.mainoperation.OperationFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 

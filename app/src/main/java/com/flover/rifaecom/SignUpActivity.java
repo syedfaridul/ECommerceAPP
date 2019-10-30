@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.flover.rifaecom.operation.Operation;
 import com.flover.rifaecom.util.initializer.OnClickTextInitializer;
-import com.flover.rifaecom.operation.singupactivityoperation.OperationFactory;
+import com.flover.rifaecom.operation.singupoperation.OperationFactory;
 import com.flover.rifaecom.util.initializer.ClickInitializer;
 import com.flover.rifaecom.util.initializer.OnClickButtonInitializer;
 
