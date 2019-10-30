@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -25,7 +24,7 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
     private ArrayList<String> mImages;
     private Context mContext;
 
-    public ProductViewAdapter(ArrayList<String> mImageNames, Context mContext) {
+    public ProductViewAdapter(ArrayList<String> mImageNames, Context mContext){
         this.mImages = mImageNames;
         this.mContext = mContext;
     }
@@ -51,7 +50,6 @@ public class ProductViewAdapter extends RecyclerView.Adapter<ProductViewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
         ImageView image;
         // TextView imageDescription;
 
